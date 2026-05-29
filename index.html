@@ -1,325 +1,1091 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CISCE Docs - ICSE & ISC Resources</title>
   
-  <!-- Favicon Link Element -->
-  <link id="favicon" rel="icon" type="image/png" href="evo.png" />
+  <!-- Dynamic Favicon Link Element -->
+  <link id="favicon" rel="icon" type="image/png" href="Imgs/icse-dark.png" />
   
-  <!-- Tailwind CSS for styling -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Tailwind Theme Configurations with Updated Hex Colors -->
+  <!-- Tailwind configurations matching screenshot specifications -->
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            darkPrimary: '#000814',
-            darkAccent: '#610202',
-            lightPrimary: '#f1faee',
-            lightAccent: '#669bbc',
+            icseCyan: {
+              DEFAULT: '#06b6d4',
+              glow: 'rgba(6, 182, 212, 0.45)',
+              focus: 'rgba(34, 211, 238, 0.2)',
+            },
+            iscPurple: {
+              DEFAULT: '#8b5cf6',
+              glow: 'rgba(139, 92, 246, 0.45)',
+              focus: 'rgba(168, 85, 247, 0.2)',
+            },
+            darkBg: '#05070f',
+            darkCard: '#0f1322',
+            lightBg: '#f8fafc',
+            lightCard: '#ffffff',
+          },
+          boxShadow: {
+            cyanGlow: '0 0 15px 2px rgba(6, 182, 212, 0.45)',
+            purpleGlow: '0 0 15px 2px rgba(139, 92, 246, 0.45)',
+            cardGlowCyan: '0 4px 20px -2px rgba(6, 182, 212, 0.12)',
+            cardGlowPurple: '0 4px 20px -2px rgba(139, 92, 246, 0.12)',
+          },
+          rotate: {
+            '18': '18deg',
           }
         }
       }
     }
   </script>
   
+  <!-- Custom CSS for custom glows, page scrolling, and fine layout controls -->
+  <style>
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Smooth custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    /* Tab active animation and borders */
+    .glow-cyan-active {
+      box-shadow: 0 0 15px 2px rgba(6, 182, 212, 0.55);
+      border-color: #06b6d4;
+    }
+    
+    .glow-purple-active {
+      box-shadow: 0 0 15px 2px rgba(139, 92, 246, 0.55);
+      border-color: #8b5cf6;
+    }
+  </style>
+
   <!-- React and Babel CDNs -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- KaTeX CSS & JS for high-fidelity mathematical formulas -->
+  <link rel="stylesheet" href="https://unpkg.com/katex@0.16.8/dist/katex.min.css" />
+  <script defer src="https://unpkg.com/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://unpkg.com/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 </head>
-<body class="min-h-screen bg-lightPrimary dark:bg-darkPrimary text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300 flex flex-col">
+<body class="min-h-screen bg-lightBg dark:bg-darkBg text-slate-800 dark:text-slate-100 font-sans flex flex-col antialiased">
 
-  <div id="root" class="flex flex-col min-h-screen justify-between"></div>
+  <div id="root" class="flex flex-col min-h-screen"></div>
 
-  <!-- React Code with Babel translation -->
-  <script type="text/babel">
-    const repositoryData = {
-      name: "CISCE Repository",
-      type: "root",
-      children: [
-        {
-          name: "ICSE (Class 10)",
-          type: "folder",
-          children: [
-            {
-              name: "Mathematics",
-              type: "folder",
-              children: [
-                { name: "2025 Specimen Paper.pdf", type: "file", size: "1.2 MB", url: "evo.png" },
-                { name: "Algebra Revision Notes.pdf", type: "file", size: "850 KB", url: "#" }
-              ]
-            },
-            {
-              name: "Physics",
-              type: "folder",
-              children: [
-                { name: "Selina Solutions - Force.pdf", type: "file", size: "2.4 MB", url: "#" }
-              ]
-            }
-          ]
-        },
-        {
-          name: "ISC (Class 12)",
-          type: "folder",
-          children: [
-            {
-              name: "Computer Science",
-              type: "folder",
-              children: [
-                { name: "Java OOPs Concepts.pdf", type: "file", size: "1.8 MB", url: "#" },
-                { name: "2024 Board Paper Solution.pdf", type: "file", size: "3.1 MB", url: "#" }
-              ]
-            }
-          ]
-        }
-      ]
-    };
+  <!-- React Core Script -->
+  <script>
+const LucideIcon = ({ name, className }) => {
+  const icons = {
+    moon: () => React.createElement("path", { d: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" }),
+    sun: () => React.createElement(React.Fragment, null, 
+      React.createElement("circle", { cx: "12", cy: "12", r: "4" }),
+      React.createElement("path", { d: "M12 2v2" }),
+      React.createElement("path", { d: "M12 20v2" }),
+      React.createElement("path", { d: "M4.93 4.93l1.41 1.41" }),
+      React.createElement("path", { d: "M17.66 17.66l1.41 1.41" }),
+      React.createElement("path", { d: "M2 12h2" }),
+      React.createElement("path", { d: "M20 12h2" }),
+      React.createElement("path", { d: "M6.34 17.66l-1.41 1.41" }),
+      React.createElement("path", { d: "M19.07 4.93l-1.41 1.41" })
+    ),
+    search: () => React.createElement(React.Fragment, null,
+      React.createElement("circle", { cx: "11", cy: "11", r: "8" }),
+      React.createElement("path", { d: "m21 21-4.3-4.3" })
+    ),
+    home: () => React.createElement(React.Fragment, null,
+      React.createElement("path", { d: "m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" }),
+      React.createElement("polyline", { points: "9 22 9 12 15 12 15 22" })
+    ),
+    folder: () => React.createElement("path", { d: "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" }),
+    'folder-open': () => React.createElement("path", { d: "m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2" }),
+    'file-text': () => React.createElement(React.Fragment, null,
+      React.createElement("path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" }),
+      React.createElement("path", { d: "M14 2v4a2 2 0 0 0 2 2h4" }),
+      React.createElement("path", { d: "M10 9H8" }),
+      React.createElement("path", { d: "M16 13H8" }),
+      React.createElement("path", { d: "M16 17H8" })
+    ),
+    'file-warning': () => React.createElement(React.Fragment, null,
+      React.createElement("path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" }),
+      React.createElement("path", { d: "M14 2v4a2 2 0 0 0 2 2h4" }),
+      React.createElement("path", { d: "M12 9v4" }),
+      React.createElement("path", { d: "M12 17h.01" })
+    ),
+    'chevron-left': () => React.createElement("path", { d: "m15 18-6-6 6-6" }),
+    'chevron-right': () => React.createElement("path", { d: "m9 18 6-6-6-6" }),
+    minus: () => React.createElement("path", { d: "M5 12h14" }),
+    plus: () => React.createElement(React.Fragment, null,
+      React.createElement("path", { d: "M5 12h14" }),
+      React.createElement("path", { d: "M12 5v14" })
+    ),
+    download: () => React.createElement(React.Fragment, null,
+      React.createElement("path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" }),
+      React.createElement("polyline", { points: "7 10 12 15 17 10" }),
+      React.createElement("line", { x1: "12", x2: "12", y1: "15", y2: "3" })
+    ),
+    x: () => React.createElement(React.Fragment, null,
+      React.createElement("path", { d: "M18 6 6 18" }),
+      React.createElement("path", { d: "m6 6 12 12" })
+    ),
+    calculator: () => React.createElement(React.Fragment, null,
+      React.createElement("rect", { width: "16", height: "20", x: "4", y: "2", rx: "2" }),
+      React.createElement("line", { x1: "8", x2: "16", y1: "6", y2: "6" }),
+      React.createElement("line", { x1: "16", x2: "16", y1: "14", y2: "18" }),
+      React.createElement("path", { d: "M16 10h.01" }),
+      React.createElement("path", { d: "M12 10h.01" }),
+      React.createElement("path", { d: "M8 10h.01" }),
+      React.createElement("path", { d: "M12 14h.01" }),
+      React.createElement("path", { d: "M8 14h.01" }),
+      React.createElement("path", { d: "M12 18h.01" }),
+      React.createElement("path", { d: "M8 18h.01" })
+    ),
+    'maximize-2': () => React.createElement(React.Fragment, null,
+      React.createElement("polyline", { points: "15 3 21 3 21 9" }),
+      React.createElement("polyline", { points: "9 21 3 21 3 15" }),
+      React.createElement("line", { x1: "21", x2: "14", y1: "3", y2: "10" }),
+      React.createElement("line", { x1: "3", x2: "10", y1: "21", y2: "14" })
+    ),
+    delete: () => React.createElement(React.Fragment, null,
+      React.createElement("path", { d: "M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z" }),
+      React.createElement("path", { d: "m18 9-6 6" }),
+      React.createElement("path", { d: "m12 9 6 6" })
+    )
+  };
 
-    function App() {
-      // Syncing stored theme context state
-      const [theme, setTheme] = React.useState(() => {
-        const savedTheme = localStorage.getItem('theme');
-        return savedTheme ? savedTheme : 'light';
-      });
+  const renderPaths = icons[name] || (() => null);
 
-      const [currentFolder, setCurrentFolder] = React.useState(repositoryData);
-      const [folderHistory, setFolderHistory] = React.useState([repositoryData]);
-      const [searchQuery, setSearchQuery] = React.useState('');
+  return React.createElement(
+    "svg",
+    {
+      xmlns: "http://www.w3.org/2000/svg",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      className: "lucide lucide-" + name + " " + (className || "")
+    },
+    renderPaths()
+  );
+};
 
-      // DOM Class modifications & synchronized Favicon file paths updates
-      React.useEffect(() => {
-        const rootElement = document.documentElement;
-        const faviconElement = document.getElementById('favicon');
+const originalCreateElement = React.createElement;
+React.createElement = function(type, props, ...children) {
+  if (type === "i" && props && props["data-lucide"]) {
+    return originalCreateElement(LucideIcon, {
+      name: props["data-lucide"],
+      className: props.className
+    });
+  }
+  return originalCreateElement(type, props, ...children);
+};
 
-        if (theme === 'dark') {
-          rootElement.classList.add('dark');
-          if (faviconElement) faviconElement.href = 'evowt.png';
-        } else {
-          rootElement.classList.remove('dark');
-          if (faviconElement) faviconElement.href = 'evo.png';
-        }
-        localStorage.setItem('theme', theme);
-      }, [theme]);
+// Complete high-fidelity course catalog structured like a real file explorer
+const repositoryData = {
+  name: "CISCE Docs",
+  type: "root",
+  children: [{
+    name: "ICSE (Class 10)",
+    type: "class",
+    code: "icse",
+    children: [{
+      name: "Science",
+      type: "stream",
+      description: "Science subjects",
+      children: [{
+        name: "Physics",
+        type: "folder",
+        children: [{
+          name: "Selina Solutions - Force.pdf",
+          type: "file",
+          size: "2.4 MB",
+          author: "Class 10 Board Panel",
+          pages: ["<h3>Chapter 1: Force, Work, Power and Energy</h3><p><strong>Key Concept:</strong> Turning effect of force. When a force acts on a body which is pivoted at a point, it turns the body about the pivoted point. The turning effect of the force is called the Torque or Moment of Force.</p><p class='mt-2'>$$\\text{Moment of Force} = \\text{Force} (F) \\times \\text{Perpendicular distance} (d)$$</p>", "<h3>Numerical Problem 1:</h3><p>A nut is opened by a wrench of length 15 cm. If the least force required is 4.0 N, find the moment of force needed to turn the nut.</p><p class='mt-2'><strong>Solution:</strong> Given, length of wrench $d = 15\\text{ cm} = 0.15\\text{ m}$. Force $F = 4.0\\text{ N}$.<br/>$\\text{Moment of Force} = F \\times d = 4.0 \\times 0.15 = 0.6\\text{ N m}$.</p>", "<h3>Center of Gravity:</h3><p>The Center of Gravity (C.G.) of a body is the point about which the algebraic sum of moments of weights of all the particles constituting the body is zero. The entire weight of the body can be considered to act at this point.</p><table class='w-full mt-2 text-xs border-collapse border border-slate-700'><thead><tr><th class='border border-slate-700 p-1'>Body Shape</th><th class='border border-slate-700 p-1'>Position of C.G.</th></tr></thead><tbody><tr><td class='border border-slate-700 p-1'>Uniform Ring</td><td class='border border-slate-700 p-1'>Center of Ring</td></tr><tr><td class='border border-slate-700 p-1'>Circular Disc</td><td class='border border-slate-700 p-1'>Geometric Center</td></tr><tr><td class='border border-slate-700 p-1'>Triangle</td><td class='border border-slate-700 p-1'>Centroid</td></tr></tbody></table>"]
+        }, {
+          name: "Specimen Paper 2025.pdf",
+          type: "file",
+          size: "1.1 MB",
+          author: "CISCE Board Council",
+          pages: ["<h3>ICSE Class X Physics Specimen 2025</h3><p><strong>Section A (40 Marks):</strong> Attempt all questions from this section.</p><p class='mt-2'><strong>Question 1:</strong> Choose the correct alternative.<br/>(i) The unit of moment of force is:<br/>(a) N kg (b) N m (c) N/m (d) kg m/s.<br/><br/><strong>Answer:</strong> (b) N m</p>", "<h3>Section B (40 Marks):</h3><p>Attempt any four questions from this section.</p><p class='mt-2'><strong>Question 5:</strong><br/>(a) State the energy changes that take place in:<br/>1. An electric toaster while in use.<br/>2. A microphone while recording sound.<br/><br/><strong>Answers:</strong><br/>1. Electrical Energy to Heat Energy.<br/>2. Sound Energy to Electrical Energy.</p>"]
+        }]
+      }, {
+        name: "Chemistry",
+        type: "folder",
+        children: [{
+          name: "Organic Chemistry Basics.pdf",
+          type: "file",
+          size: "1.5 MB",
+          author: "Student Study Circle",
+          pages: ["<h3>Organic Chemistry: Alkanes, Alkenes, Alkyne</h3><p><strong>Introduction:</strong> Organic compounds are hydrocarbons and their derivatives. Carbon exhibits tetravalency and catenation (self-linking property).</p><p class='mt-2'><strong>Homologous Series:</strong> A group of organic compounds having the same functional group and similar chemical properties in which successive members differ by a $-\\text{CH}_2$ group.</p>", "<h3>Functional Groups:</h3><p>1. Alcohol: $-\\text{OH}$ (Suffix: -ol)<br/>2. Aldehyde: $-\\text{CHO}$ (Suffix: -al)<br/>3. Carboxylic Acid: $-\\text{COOH}$ (Suffix: -oic acid)</p><p class='mt-2'><strong>Example:</strong> Ethanol: $\\text{CH}_3-\\text{CH}_2-\\text{OH}$</p>"]
+        }, {
+          name: "2024 Board Paper.pdf",
+          type: "file",
+          size: "2.0 MB",
+          author: "CISCE Archive",
+          pages: ["<h3>ICSE 2024 Chemistry Question Paper</h3><p><strong>Time:</strong> 2 Hours | <strong>Max Marks:</strong> 80</p><p class='mt-2'><strong>Question 1:</strong> Fill in the blanks with correct terms:<br/>(i) Electrovalency is shown by ____ compounds (ionic / covalent).<br/>(ii) The gas evolved when calcium carbonate reacts with dilute HCl is ____ (carbon dioxide / chlorine).</p>"]
+        }]
+      }, {
+        name: "Biology",
+        type: "folder",
+        children: [{
+          name: "Plant Physiology Notes.pdf",
+          type: "file",
+          size: "1.2 MB",
+          author: "Greenwood Academy",
+          pages: ["<h3>Plant Physiology: Photosynthesis</h3><p>Photosynthesis is the process by which living plant cells containing chlorophyll produce food (glucose) from carbon dioxide and water in the presence of sunlight.</p><p class='mt-2'>$$\\text{6CO}_2 + \\text{12H}_2\\text{O} \\xrightarrow[\\text{Sunlight}]{\\text{Chlorophyll}} \\text{C}_6\\text{H}_{12}\\text{O}_6 + \\text{6H}_2\\text{O} + \\text{6O}_2$$</p>"]
+        }]
+      }]
+    }, {
+      name: "Humanities",
+      type: "stream",
+      description: "Humanities subjects",
+      children: [{
+        name: "History & Civics",
+        type: "folder",
+        children: [{
+          name: "Indian National Movement.pdf",
+          type: "file",
+          size: "1.8 MB",
+          author: "Student Guild",
+          pages: ["<h3>The Indian National Movement (1885 - 1916)</h3><p><strong>Foundation of INC:</strong> The Indian National Congress was founded in December 1885 by A.O. Hume. The first session was held in Bombay under W.C. Bonnerjee.</p>", "<h3>Assertive Nationalism:</h3><p>Key leaders: Bal Gangadhar Tilak, Lala Lajpat Rai, Bipin Chandra Pal (Lal-Bal-Pal). They believed in radical action, swadeshi, and boycott.</p>"]
+        }]
+      }, {
+        name: "Geography",
+        type: "folder",
+        children: [{
+          name: "Topographical Maps Study Guide.pdf",
+          type: "file",
+          size: "3.5 MB",
+          author: "Geo Scholars",
+          pages: ["<h3>Interpretation of Topographic Sheets</h3><p><strong>Grid References:</strong> Eastings are vertical lines running north-south, and Northings are horizontal lines running east-west. A 4-figure grid reference is used to locate a 1 km grid square.</p>"]
+        }]
+      }]
+    }, {
+      name: "Arts",
+      type: "stream",
+      description: "Arts subjects",
+      children: [{
+        name: "Art",
+        type: "folder",
+        children: [{
+          name: "Still Life Painting Techniques.pdf",
+          type: "file",
+          size: "2.2 MB",
+          author: "Fine Arts Lab",
+          pages: ["<h3>Still Life Painting Basics</h3><p>Still life painting focuses on inanimate subject matter. Techniques include hatching, cross-hatching, stippling, and smooth blending to establish realistic lighting and shadow depth.</p>"]
+        }]
+      }]
+    }]
+  }, {
+    name: "ISC (Class 11-12)",
+    type: "class",
+    code: "isc",
+    children: [{
+      name: "Science",
+      type: "stream",
+      description: "Science subjects",
+      children: [{
+        name: "Mathematics",
+        type: "folder",
+        children: [{
+          name: "Calculus - Integration Notes.pdf",
+          type: "file",
+          size: "2.5 MB",
+          author: "Dr. Roy's Classes",
+          pages: ["<h3>ISC Mathematics: Indefinite Integral</h3><p>Integration is the inverse process of differentiation. The standard formulas are:</p><ul class='list-disc pl-5 mt-2 space-y-1'><li>$\\int x^n dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$</li><li>$\\int e^x dx = e^x + C$</li><li>$\\int \\frac{1}{x} dx = \\ln|x| + C$</li></ul>", "<h3>Integration by Parts:</h3><p>Used to integrate the product of two functions. Natively abbreviated as the ILATE rule (Inverse, Logarithmic, Algebraic, Trigonometric, Exponential).</p><p class='mt-2'>$$\\int u \\, v \\, dx = u \\int v \\, dx - \\int \\left( \\frac{du}{dx} \\int v \\, dx \\right) dx$$</p>"]
+        }, {
+          name: "Specimen Paper 2025.pdf",
+          type: "file",
+          size: "1.3 MB",
+          author: "CISCE Board Council",
+          pages: ["<h3>ISC Class XII Mathematics Specimen 2025</h3><p><strong>Section A (80 Marks):</strong> Compulsory Section.</p><p class='mt-2'><strong>Question 1:</strong> Evaluate the limit:<br/>$\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$.<br/><strong>Answer:</strong> 1 (using L'Hôpital's rule or standard trigonometric limits).</p>"]
+        }]
+      }, {
+        name: "Physics",
+        type: "folder",
+        children: [{
+          name: "Electromagnetism Solved Problems.pdf",
+          type: "file",
+          size: "3.0 MB",
+          author: "Physics Lab Tech",
+          pages: ["<h3>Electromagnetism: Gauss's Law</h3><p>Gauss's law states that the total electric flux out of any closed surface is equal to the net charge enclosed by the surface divided by the permittivity of free space.</p><p class='mt-2'>$$\\Phi_E = \\oint \\vec{E} \\cdot d\\vec{A} = \\frac{q_{\\text{enclosed}}}{\\varepsilon_0}$$</p>"]
+        }]
+      }, {
+        name: "Chemistry",
+        type: "folder",
+        children: [{
+          name: "Coordination Compounds Guide.pdf",
+          type: "file",
+          size: "1.7 MB",
+          author: "Chem Notes",
+          pages: ["<h3>Coordination Complexes & Ligands</h3><p>Coordination compounds are chemical complexes consisting of a central metal atom/ion surrounded by molecules or anions called ligands (Lewis bases).</p>"]
+        }]
+      }, {
+        name: "Computer Science",
+        type: "folder",
+        children: [{
+          name: "Java OOPs Concepts.pdf",
+          type: "file",
+          size: "1.8 MB",
+          author: "Bitwise Academy",
+          pages: ["<h3>Java OOPs: Encapsulation & Inheritance</h3><p>Object-Oriented Programming (OOP) in Java relies on core principles: Inheritance, Polymorphism, Abstraction, and Encapsulation.</p><p class='mt-2'><strong>Inheritance Code Example:</strong></p><pre class='bg-slate-900 text-cyan-400 p-2 rounded text-xs mt-2'>class Animal {\n  void eat() { System.out.println(\"Eating...\"); }\n}\nclass Dog extends Animal {\n  void bark() { System.out.println(\"Barking...\"); }\n}</pre>"]
+        }, {
+          name: "2024 Board Paper Solution.pdf",
+          type: "file",
+          size: "3.1 MB",
+          author: "CISCE Board Council",
+          pages: ["<h3>ISC 2024 Computer Science Solved Paper</h3><p><strong>Section A:</strong> Theory & Recursion Solutions.</p><p class='mt-2'><strong>Question 3:</strong> Write a recursive method to return the sum of digits of a number.<br/><pre class='bg-slate-900 text-cyan-400 p-2 rounded text-xs mt-1'>int sumDigits(int n) {\n  if (n == 0) return 0;\n  return (n % 10) + sumDigits(n / 10);\n}</pre></p>"]
+        }]
+      }]
+    }, {
+      name: "Humanities",
+      type: "stream",
+      description: "Humanities subjects",
+      children: [{
+        name: "English Literature",
+        type: "folder",
+        children: [{
+          name: "The Tempest Act-wise Analysis.pdf",
+          type: "file",
+          size: "1.9 MB",
+          author: "Bard Lit Guild",
+          pages: ["<h3>William Shakespeare's The Tempest</h3><p><strong>Act I, Scene i:</strong> The play opens on a ship at sea during a violent tempest. Prospero, the exiled Duke of Milan, has conjured the storm using magic to bring his enemies to the island.</p>"]
+        }]
+      }, {
+        name: "Economics",
+        type: "folder",
+        children: [{
+          name: "Theory of Demand and Supply.pdf",
+          type: "file",
+          size: "1.4 MB",
+          author: "Fiscal Hub",
+          pages: ["<h3>Microeconomics: Supply and Demand Curves</h3><p>Demand is the quantity of a good that consumers are willing and able to purchase at various prices. The Law of Demand states that price and quantity demanded are inversely related, ceteris paribus.</p>"]
+        }]
+      }]
+    }, {
+      name: "Arts",
+      type: "stream",
+      description: "Arts subjects",
+      children: [{
+        name: "Fashion Designing",
+        type: "folder",
+        children: [{
+          name: "Introduction to Textile Science.pdf",
+          type: "file",
+          size: "2.8 MB",
+          author: "Atelier Studio",
+          pages: ["<h3>Textile Fibers Classification</h3><p>Fibers are classified into Natural (cotton, wool, silk) and Synthetic (nylon, polyester, acrylic). Textile science explores fiber tensile strength, thermal properties, and moisture absorption.</p>"]
+        }]
+      }]
+    }]
+  }]
+};
+function App() {
+  // Theme state synced with localStorage
+  const [theme, setTheme] = React.useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme ? savedTheme : 'dark';
+  });
 
-      const toggleTheme = () => {
-        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-      };
+  // Selected tab state: 'icse' or 'isc'
+  const [activeTab, setActiveTab] = React.useState('icse');
 
-      const handleFolderClick = (folder) => {
-        setFolderHistory([...folderHistory, folder]);
-        setCurrentFolder(folder);
-      };
+  // Folder navigation history
+  const [currentFolder, setCurrentFolder] = React.useState(null);
+  const [folderHistory, setFolderHistory] = React.useState([]);
 
-      const handleBreadcrumbClick = (index) => {
-        const newHistory = folderHistory.slice(0, index + 1);
-        setFolderHistory(newHistory);
-        setCurrentFolder(newHistory[newHistory.length - 1]);
-      };
+  // Search Query
+  const [searchQuery, setSearchQuery] = React.useState('');
 
-      const getAllFiles = (node, path = "") => {
-        let files = [];
-        if (node.children) {
-          node.children.forEach(child => {
-            files = [...files, ...getAllFiles(child, path ? `${path} > ${node.name}` : node.name)];
-          });
-        } else if (node.type === 'file') {
-          files.push({ ...node, displayPath: path });
-        }
-        return files;
-      };
+  // Integrated PDF/Doc Viewer State
+  const [activeDoc, setActiveDoc] = React.useState(null);
+  const [docPageIndex, setDocPageIndex] = React.useState(0);
+  const [docZoom, setDocZoom] = React.useState(100);
 
-      const allFiles = getAllFiles(repositoryData);
-      const filteredFiles = allFiles.filter(file =>
-        file.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+  // Calculator Popup States (Exclusive to ISC)
+  const [isCalcOpen, setIsCalcOpen] = React.useState(false);
+  const [calcMode, setCalcMode] = React.useState('expanded'); // 'expanded', 'minimized'
+  const [calcCorner, setCalcCorner] = React.useState('br'); // 'tl', 'tr', 'bl', 'br'
+  const [calcExpression, setCalcExpression] = React.useState('');
+  const [calcResult, setCalcResult] = React.useState('0');
+  const [calcAngleMode, setCalcAngleMode] = React.useState('deg'); // 'deg', 'rad'
 
-      // Triggers vector rendering for freshly updated state components
-      React.useEffect(() => {
-        if (window.lucide) {
-          window.lucide.createIcons();
-        }
-      }, [currentFolder, searchQuery, theme]);
-
-      // Detect if we are on the home/root screen
-      const isRoot = currentFolder.type === 'root';
-
-      return (
-        <div className="flex flex-col min-h-screen w-full">
-          {/* Main App Container Wrapper */}
-          <div className="flex-grow">
-            {/* Navbar wrapper layouts */}
-            <nav className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-300">
-              <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-                
-                {/* Dynamic Header Box */}
-                <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleBreadcrumbClick(0)}>
-                  <img 
-                    src={theme === 'light' ? 'evo.png' : 'evowt.png'} 
-                    alt="Evo Logo" 
-                    className="h-8 w-8 object-contain rounded-md transition-all duration-300 transform hover:scale-105"
-                    onError={(e) => { e.target.src = 'https://placeholder.co/32' }} 
-                  />
-                  <span className="font-bold text-xl tracking-tight text-gray-800 dark:text-white">CISCE Docs</span>
-                </div>
-
-                {/* Theme Toggle Wrapper with Dynamic Hint */}
-                <div className="flex items-center space-x-3">
-                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400 transition-colors hidden sm:inline">
-                    {theme === 'light' ? "Switch to Dark" : "Switch to Light"}
-                  </span>
-                  <button 
-                    onClick={toggleTheme}
-                    className="p-2.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700 transition-all border border-gray-200 dark:border-slate-700 flex items-center justify-center"
-                    aria-label="Toggle Theme"
-                  >
-                    {theme === 'light' ? (
-                      <i data-lucide="moon" className="w-5 h-5 text-slate-800"></i>
-                    ) : (
-                      <i data-lucide="sun" className="w-5 h-5 text-amber-400 dark:invert dark:brightness-200"></i>
-                    )}
-                  </button>
-                </div>
-
-              </div>
-            </nav>
-
-            {/* Main Workspace Frame */}
-            <main className="max-w-6xl mx-auto px-4 py-8">
-              
-              {/* Search Input Field */}
-              <div className="relative mb-8">
-                <span className="absolute left-4 top-3.5 text-gray-400">
-                  <i data-lucide="search" className="w-5 h-5"></i>
-                </span>
-                <input
-                  type="text"
-                  placeholder="Search across all ICSE & ISC study materials, notes, past papers..."
-                  className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-lightAccent dark:focus:ring-darkAccent text-gray-900 dark:text-white transition-all"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-
-              {searchQuery ? (
-                /* Global Panel Match View Container */
-                <div>
-                  <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
-                    Search Results ({filteredFiles.length})
-                  </h2>
-                  {filteredFiles.length > 0 ? (
-                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 divide-y divide-gray-100 dark:divide-slate-700">
-                      {filteredFiles.map((file, idx) => (
-                        <div key={idx} className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
-                          <div className="flex items-center space-x-3">
-                            <i data-lucide="file-text" className="w-5 h-5 text-red-500 flex-shrink-0"></i>
-                            <div>
-                              <p className="font-medium text-gray-800 dark:text-gray-200">{file.name}</p>
-                              <p className="text-xs text-gray-400 dark:text-gray-400">{file.displayPath} • {file.size}</p>
-                            </div>
-                          </div>
-                          <a href={file.url} target="_blank" className="p-2 text-gray-400 hover:text-lightAccent dark:hover:text-lightAccent rounded-lg">
-                            <i data-lucide="download" className="w-5 h-5"></i>
-                          </a>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-12 text-gray-500 dark:text-gray-400">No documents found.</div>
-                  )}
-                </div>
-              ) : (
-                /* Standard Grid Directories Explorer Tree */
-                <div>
-                  {/* Show main welcome title on home screen, or current folder name when deep browsing */}
-                  <h1 className="text-xl font-bold mb-4 text-lightAccent dark:text-darkAccent tracking-wide transition-colors duration-300">
-                    {isRoot ? "Study Materials" : currentFolder.name}
-                  </h1>
-
-                  {/* Path Navigation Line Links */}
-                  <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6 overflow-x-auto py-1">
-                    {folderHistory.map((folder, index) => (
-                      <div key={index} className="flex items-center flex-shrink-0">
-                        {index > 0 && <span className="mx-1 text-gray-400">/</span>}
-                        <button
-                          onClick={() => handleBreadcrumbClick(index)}
-                          className={`hover:text-lightAccent dark:hover:text-lightAccent font-medium transition-colors ${
-                            index === folderHistory.length - 1 ? 'text-lightAccent dark:text-lightAccent font-semibold' : ''
-                          }`}
-                        >
-                          {folder.name}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Main Directory Display Grid layout mappings */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {currentFolder.children && currentFolder.children.map((item, index) => (
-                      <div key={index}>
-                        {item.type === 'folder' ? (
-                          /* Directory Card Components */
-                          <button
-                            onClick={() => handleFolderClick(item)}
-                            className="w-full text-left p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 hover:border-lightAccent dark:hover:border-darkAccent hover:shadow-md transition-all flex items-center justify-between group"
-                          >
-                            <div className="flex items-center space-x-3 truncate">
-                              <i data-lucide="folder" className="w-6 h-6 text-lightAccent dark:text-darkAccent flex-shrink-0"></i>
-                              <span className="font-medium text-gray-700 dark:text-gray-200 truncate">{item.name}</span>
-                            </div>
-                            <span className="text-gray-400 group-hover:translate-x-1 transition-transform">➔</span>
-                          </button>
-                        ) : (
-                          /* Document File Card Components */
-                          <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 flex items-center justify-between hover:shadow-md transition-all">
-                            <div className="flex items-center space-x-3 truncate">
-                              <i data-lucide="file-text" className="w-6 h-6 text-red-500 flex-shrink-0"></i>
-                              <div className="truncate">
-                                <p className="font-medium text-gray-700 dark:text-gray-200 truncate" title={item.name}>{item.name}</p>
-                                <p className="text-xs text-gray-400 dark:text-gray-400">{item.size}</p>
-                              </div>
-                            </div>
-                            <a href={item.url} target="_blank" className="p-2 text-gray-400 hover:text-lightAccent dark:hover:text-lightAccent rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700">
-                              <i data-lucide="download" className="w-5 h-5"></i>
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </main>
-          </div>
-
-          {/* Fully Responsive Adaptable Footer Frame */}
-          <footer className="w-full py-6 mt-12 border-t border-gray-200 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/40 backdrop-blur-sm transition-colors duration-300">
-            <div className="max-w-6xl mx-auto px-4 text-center space-y-1.5">
-              <p className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wide transition-colors">
-                <strong>NOT</strong> affiliated to the Council for the Indian Secondary Certificate Examinations CISCE
-              </p>
-              <p className="text-xs sm:text-sm font-semibold text-gray-400 dark:text-gray-500 transition-colors">
-                Developed by students for students
-              </p>
-            </div>
-          </footer>
-        </div>
-      );
+  // Synchronize light/dark class on body and the Favicon / Logos
+  React.useEffect(() => {
+    const rootElement = document.documentElement;
+    const faviconElement = document.getElementById('favicon');
+    if (theme === 'dark') {
+      rootElement.classList.add('dark');
+    } else {
+      rootElement.classList.remove('dark');
     }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+    // Dynamically compute the logo/favicon source path based on selected class and theme
+    const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
+    const logoPath = `Imgs/${logoName}`;
+    if (faviconElement) {
+      faviconElement.href = logoPath;
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme, activeTab]);
 
-    // Lucide initialization routine
-    setTimeout(() => { if(window.lucide) lucide.createIcons(); }, 150);
+  // Set initial folder path when active tab changes
+  React.useEffect(() => {
+    const classNode = repositoryData.children.find(c => c.code === activeTab);
+    if (classNode) {
+      setCurrentFolder(classNode);
+      setFolderHistory([classNode]);
+    }
+    // Force-close calculator if switching to ICSE
+    if (activeTab === 'icse') {
+      setIsCalcOpen(false);
+    }
+  }, [activeTab]);
+
+  // Typeset LaTeX equations whenever active document or page changes
+  React.useEffect(() => {
+    if (activeDoc && window.renderMathInElement) {
+      const pane = document.getElementById('reading-pane');
+      if (pane) {
+        window.renderMathInElement(pane, {
+          delimiters: [{
+            left: '$$',
+            right: '$$',
+            display: true
+          }, {
+            left: '$',
+            right: '$',
+            display: false
+          }],
+          throwOnError: false
+        });
+      }
+    }
+  }, [activeDoc, docPageIndex, docZoom]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+  const handleFolderClick = folder => {
+    setFolderHistory([...folderHistory, folder]);
+    setCurrentFolder(folder);
+  };
+  const handleBreadcrumbClick = index => {
+    const newHistory = folderHistory.slice(0, index + 1);
+    setFolderHistory(newHistory);
+    setCurrentFolder(newHistory[newHistory.length - 1]);
+  };
+
+  // Traverse repository tree recursively to collect all files for search indexing
+  const getAllFiles = (node, path = "") => {
+    let files = [];
+    const currentPath = path ? `${path} > ${node.name}` : node.name;
+    if (node.children) {
+      node.children.forEach(child => {
+        files = [...files, ...getAllFiles(child, currentPath)];
+      });
+    } else if (node.type === 'file') {
+      files.push({
+        ...node,
+        displayPath: path
+      });
+    }
+    return files;
+  };
+
+  // Filter all files across the selected class tab
+  const currentClassNode = repositoryData.children.find(c => c.code === activeTab);
+  const allFiles = currentClassNode ? getAllFiles(currentClassNode, "Home") : [];
+  const filteredFiles = allFiles.filter(file => file.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  // Document Viewer Handlers
+  const openDoc = doc => {
+    setActiveDoc(doc);
+    setDocPageIndex(0);
+    setDocZoom(100);
+  };
+  const closeDoc = () => {
+    setActiveDoc(null);
+  };
+
+  // Calculator Expression Evaluator Engine
+  const handleCalcButton = value => {
+    if (value === 'C') {
+      setCalcExpression('');
+      setCalcResult('0');
+    } else if (value === '⌫') {
+      setCalcExpression(prev => prev.slice(0, -1));
+    } else if (value === '=') {
+      evaluateExpression();
+    } else {
+      setCalcExpression(prev => prev + value);
+    }
+  };
+  const evaluateExpression = () => {
+    try {
+      let expr = calcExpression;
+      // Format standard operators and symbols (including Unicode minus U+2212) for JS evaluation
+      expr = expr.replace(/−/g, '-').replace(/×/g, '*').replace(/÷/g, '/');
+
+      // Replace standard constants
+      expr = expr.replace(/\bπ\b/g, 'Math.PI');
+      expr = expr.replace(/\be\b/g, 'Math.E');
+
+      // Custom function mappings with Degrees/Radians checks
+      const isDeg = calcAngleMode === 'deg';
+
+      // Trigonometric mappings
+      const wrapTrig = (funcName, mathFunc) => {
+        const regex = new RegExp(`\\b${funcName}\\(([^)]+)\\)`, 'g');
+        expr = expr.replace(regex, (match, inner) => {
+          // Note: Evaluate nested inner expression first if it contains math operators
+          let evaluatedInner = eval(inner.replace(/×/g, '*').replace(/÷/g, '/'));
+          if (isDeg) {
+            // Degrees to radians conversion
+            evaluatedInner = evaluatedInner * (Math.PI / 180);
+          }
+          return `Math.${mathFunc}(${evaluatedInner})`;
+        });
+      };
+
+      // Map trig
+      wrapTrig('sin', 'sin');
+      wrapTrig('cos', 'cos');
+      wrapTrig('tan', 'tan');
+
+      // Map inverse trig
+      const wrapInverseTrig = (funcName, mathFunc) => {
+        const regex = new RegExp(`\\b${funcName}\\(([^)]+)\\)`, 'g');
+        expr = expr.replace(regex, (match, inner) => {
+          let evaluatedInner = eval(inner.replace(/×/g, '*').replace(/÷/g, '/'));
+          let resultVal = `Math.${mathFunc}(${evaluatedInner})`;
+          if (isDeg) {
+            // Radians to degrees conversion
+            return `(${resultVal} * (180 / Math.PI))`;
+          }
+          return resultVal;
+        });
+      };
+      wrapInverseTrig('sin⁻¹', 'asin');
+      wrapInverseTrig('cos⁻¹', 'acos');
+      wrapInverseTrig('tan⁻¹', 'atan');
+
+      // Exponents and root mappings
+      expr = expr.replace(/(\w+|\([^)]+\))\^(\w+|\([^)]+\))/g, 'Math.pow($1, $2)');
+      expr = expr.replace(/√\(([^)]+)\)/g, 'Math.sqrt($1)');
+      expr = expr.replace(/√(\d+(\.\d+)?)/g, 'Math.sqrt($1)');
+
+      // Logarithm mappings
+      expr = expr.replace(/\blog\(([^)]+)\)/g, 'Math.log10($1)');
+      expr = expr.replace(/\bln\(([^)]+)\)/g, 'Math.log($1)');
+
+      // Native evaluation
+      const finalResult = eval(expr);
+      if (finalResult === undefined || isNaN(finalResult)) {
+        setCalcResult('Error');
+      } else if (!isFinite(finalResult)) {
+        setCalcResult('Infinity');
+      } else {
+        // Round to high-fidelity scientific decimal precision
+        setCalcResult(Number(finalResult.toFixed(10)).toString());
+      }
+    } catch (error) {
+      setCalcResult('Error');
+    }
+  };
+  const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
+  const logoPath = `Imgs/${logoName}`;
+  const accentColor = activeTab === 'icse' ? 'text-icseCyan' : 'text-iscPurple';
+  const borderHoverColor = activeTab === 'icse' ? 'hover:border-icseCyan shadow-cyanGlow' : 'hover:border-iscPurple shadow-purpleGlow';
+  const glowButtonClass = activeTab === 'icse' ? 'bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.45)]' : 'bg-violet-600 shadow-[0_0_15px_rgba(139,92,246,0.45)]';
+
+  // Dynamic class positions for snappy calculator corners
+  const cornerClasses = {
+    tl: 'top-20 left-4',
+    tr: 'top-20 right-4',
+    bl: 'bottom-24 left-4',
+    br: 'bottom-24 right-4'
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col min-h-screen w-full select-none"
+  }, /*#__PURE__*/React.createElement("nav", {
+    className: "bg-white/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800/80 sticky top-0 z-40 backdrop-blur-md transition-colors duration-300"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "max-w-6xl mx-auto px-4 h-16 flex items-center justify-between"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-3 cursor-pointer",
+    onClick: () => handleBreadcrumbClick(0)
+  }, /*#__PURE__*/React.createElement("img", {
+    src: logoPath,
+    alt: "Starburst Logo",
+    className: "h-9 w-9 object-contain transition-all duration-300 transform hover:rotate-18",
+    onError: e => {
+      e.target.src = 'https://placehold.co/36';
+    }
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "font-bold text-lg sm:text-xl tracking-tight text-slate-800 dark:text-white block"
+  }, "CISCE Resources"), /*#__PURE__*/React.createElement("span", {
+    className: "text-[10px] text-slate-500 dark:text-slate-400 -mt-1 block"
+  }, "Study materials for ICSE & ISC students"))), /*#__PURE__*/React.createElement("button", {
+    onClick: toggleTheme,
+    className: "p-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all flex items-center justify-center cursor-pointer",
+    "aria-label": "Toggle Theme"
+  }, theme === 'light' ? /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "moon",
+    className: "w-5 h-5 text-slate-800"
+  }) : /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "sun",
+    className: "w-5 h-5 text-amber-400"
+  })))), /*#__PURE__*/React.createElement("main", {
+    className: "max-w-6xl w-full mx-auto px-4 py-6 flex-grow flex flex-col justify-start"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800/60 self-start"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setActiveTab('icse'),
+    className: `px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${activeTab === 'icse' ? 'bg-cyan-500 text-white shadow-[0_0_12px_rgba(6,182,212,0.45)]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100'}`
+  }, "ICSE (Class 10)"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setActiveTab('isc'),
+    className: `px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${activeTab === 'isc' ? 'bg-violet-600 text-white shadow-[0_0_12px_rgba(139,92,246,0.45)]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100'}`
+  }, "ISC (Class 11-12)")), /*#__PURE__*/React.createElement("div", {
+    className: "relative flex-grow md:max-w-lg"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "absolute left-4 top-3 text-slate-400"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "search",
+    className: "w-5 h-5"
+  })), /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    placeholder: "Search for resources...",
+    className: "w-full pl-11 pr-4 py-2.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-700 text-slate-900 dark:text-slate-100 transition-all text-sm shadow-inner",
+    value: searchQuery,
+    onChange: e => setSearchQuery(e.target.value)
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/60 rounded-xl py-2.5 px-4 mb-6 flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-400 shadow-sm overflow-x-auto"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleBreadcrumbClick(0),
+    className: "hover:text-slate-900 dark:hover:text-slate-100 transition-colors flex items-center cursor-pointer"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "home",
+    className: "w-4 h-4 mr-1"
+  }), /*#__PURE__*/React.createElement("span", null, "Home")), folderHistory.slice(1).map((folder, index) => /*#__PURE__*/React.createElement("div", {
+    key: index,
+    className: "flex items-center space-x-2 flex-shrink-0"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-slate-400 font-light"
+  }, "/"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleBreadcrumbClick(index + 1),
+    className: `hover:text-slate-900 dark:hover:text-slate-100 transition-colors ${index === folderHistory.length - 2 ? 'text-slate-900 dark:text-white font-semibold' : ''}`
+  }, folder.name)))), searchQuery ? /*#__PURE__*/React.createElement("div", {
+    className: "flex-grow"
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4"
+  }, "Search Results (", filteredFiles.length, ")"), filteredFiles.length > 0 ? /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-1 md:grid-cols-2 gap-4"
+  }, filteredFiles.map((file, idx) => /*#__PURE__*/React.createElement("div", {
+    key: idx,
+    onClick: () => openDoc(file),
+    className: "p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-slate-400 dark:hover:border-slate-700 shadow-sm transition-all flex items-center justify-between cursor-pointer group hover:scale-[1.01]"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-3.5 min-w-0"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "file-text",
+    className: "w-6 h-6 text-red-500 flex-shrink-0"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "min-w-0"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "font-semibold text-slate-800 dark:text-slate-200 truncate"
+  }, file.name), /*#__PURE__*/React.createElement("p", {
+    className: "text-[11px] text-slate-400 truncate"
+  }, file.displayPath, " \u2022 ", file.size))), /*#__PURE__*/React.createElement("span", {
+    className: "text-slate-400 group-hover:translate-x-0.5 transition-transform mr-1 text-sm"
+  }, "\u2794")))) : /*#__PURE__*/React.createElement("div", {
+    className: "text-center py-16 bg-slate-50 dark:bg-slate-900/10 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl text-slate-400"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "file-warning",
+    className: "w-10 h-10 mx-auto mb-2 text-slate-500 opacity-60"
+  }), /*#__PURE__*/React.createElement("p", null, "No documents found matching \"", searchQuery, "\""))) :
+  /*#__PURE__*/
+  /* Regular Folder Explorer Tree */
+  React.createElement("div", {
+    className: "flex-grow"
+  }, /*#__PURE__*/React.createElement("h1", {
+    className: "text-lg font-bold mb-4 text-slate-800 dark:text-slate-200 tracking-wide"
+  }, currentFolder ? currentFolder.type === 'class' ? 'Streams' : currentFolder.name : 'Explorer'), currentFolder && currentFolder.children && currentFolder.children.length > 0 ? /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+  }, currentFolder.children.map((item, index) => /*#__PURE__*/React.createElement("div", {
+    key: index
+  }, item.type === 'stream' || item.type === 'folder' ? /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleFolderClick(item),
+    className: `w-full text-left p-4.5 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 hover:scale-[1.01] shadow-sm hover:shadow-md hover:border-slate-400 dark:hover:border-slate-700 transition-all flex items-center justify-between group cursor-pointer`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-4 min-w-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 flex-shrink-0"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "folder",
+    className: `w-6 h-6 ${accentColor}`
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "min-w-0"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "font-bold text-slate-800 dark:text-slate-200 block truncate leading-snug"
+  }, item.name), /*#__PURE__*/React.createElement("span", {
+    className: "text-[11px] text-slate-400 block truncate leading-none mt-1"
+  }, item.description || (item.children ? `${item.children.length} items` : 'Directory')))), /*#__PURE__*/React.createElement("span", {
+    className: "text-slate-400 group-hover:translate-x-1 transition-transform pr-1"
+  }, "\u2794")) :
+  /*#__PURE__*/
+  /* If File Type (Trigger Custom Document Viewer) */
+  React.createElement("div", {
+    onClick: () => openDoc(item),
+    className: "p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:scale-[1.01] hover:border-slate-400 dark:hover:border-slate-700 shadow-sm transition-all flex items-center justify-between cursor-pointer group"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-3.5 min-w-0"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "file-text",
+    className: "w-6 h-6 text-red-500 flex-shrink-0"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "min-w-0"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "font-semibold text-slate-800 dark:text-slate-200 truncate leading-snug",
+    title: item.name
+  }, item.name), /*#__PURE__*/React.createElement("p", {
+    className: "text-[10px] text-slate-400 mt-1"
+  }, item.size, " \u2022 PDF Document"))), /*#__PURE__*/React.createElement("span", {
+    className: "text-slate-400 group-hover:scale-105 transition-transform pr-1"
+  }, "\u2794"))))) : /*#__PURE__*/React.createElement("div", {
+    className: "text-center py-16 bg-slate-50 dark:bg-slate-900/10 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl text-slate-400"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "folder-open",
+    className: "w-10 h-10 mx-auto mb-2 text-slate-500 opacity-60"
+  }), /*#__PURE__*/React.createElement("p", null, "This directory is empty")))), /*#__PURE__*/React.createElement("footer", {
+    className: "w-full py-6 border-t border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-950 transition-colors duration-300"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "max-w-6xl mx-auto px-4 text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400 space-y-1"
+  }, /*#__PURE__*/React.createElement("p", null, "NOT affiliated to the Council for the Indian Secondary Certificate Examinations ."), /*#__PURE__*/React.createElement("p", {
+    className: "font-medium text-slate-600 dark:text-slate-300"
+  }, "Developed by students for students."))), activeDoc && /*#__PURE__*/React.createElement("div", {
+    className: "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col h-[85vh] animate-in fade-in zoom-in-95 duration-200"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950 rounded-t-2xl"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-3 truncate mr-4"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "file-text",
+    className: "w-5 h-5 text-red-500 flex-shrink-0"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "truncate"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "font-bold text-sm text-slate-200 block truncate"
+  }, activeDoc.name), /*#__PURE__*/React.createElement("span", {
+    className: "text-[10px] text-slate-400 block -mt-0.5"
+  }, activeDoc.author || 'CISCE Doc Pool'))), /*#__PURE__*/React.createElement("div", {
+    className: "hidden sm:flex items-center space-x-6 text-slate-400 text-xs"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-2"
+  }, /*#__PURE__*/React.createElement("button", {
+    disabled: docPageIndex === 0,
+    onClick: () => setDocPageIndex(prev => Math.max(0, prev - 1)),
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white disabled:opacity-40 disabled:hover:bg-transparent cursor-pointer"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "chevron-left",
+    className: "w-4 h-4"
+  })), /*#__PURE__*/React.createElement("span", null, "Page ", docPageIndex + 1, " of ", activeDoc.pages.length), /*#__PURE__*/React.createElement("button", {
+    disabled: docPageIndex === activeDoc.pages.length - 1,
+    onClick: () => setDocPageIndex(prev => Math.min(activeDoc.pages.length - 1, prev + 1)),
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white disabled:opacity-40 disabled:hover:bg-transparent cursor-pointer"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "chevron-right",
+    className: "w-4 h-4"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "w-[1px] h-4 bg-slate-800"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-2"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setDocZoom(prev => Math.max(50, prev - 25)),
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white cursor-pointer"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "minus",
+    className: "w-4 h-4"
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "w-10 text-center"
+  }, docZoom, "%"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setDocZoom(prev => Math.min(150, prev + 25)),
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white cursor-pointer"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "plus",
+    className: "w-4 h-4"
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-2 flex-shrink-0"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    onClick: e => {
+      e.preventDefault();
+      alert("Preparing direct download file stream...");
+    },
+    className: "p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors",
+    title: "Download PDF"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "download",
+    className: "w-4.5 h-4.5"
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: closeDoc,
+    className: "p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:text-white hover:bg-red-500 transition-colors cursor-pointer",
+    title: "Close Viewer"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "x",
+    className: "w-4.5 h-4.5"
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "sm:hidden flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-950/40 text-xs text-slate-400"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-2"
+  }, /*#__PURE__*/React.createElement("button", {
+    disabled: docPageIndex === 0,
+    onClick: () => setDocPageIndex(prev => Math.max(0, prev - 1)),
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white disabled:opacity-40 disabled:hover:bg-transparent cursor-pointer"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "chevron-left",
+    className: "w-4 h-4"
+  })), /*#__PURE__*/React.createElement("span", null, "Page ", docPageIndex + 1, " of ", activeDoc.pages.length), /*#__PURE__*/React.createElement("button", {
+    disabled: docPageIndex === activeDoc.pages.length - 1,
+    onClick: () => setDocPageIndex(prev => Math.min(activeDoc.pages.length - 1, prev + 1)),
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white disabled:opacity-40 disabled:hover:bg-transparent cursor-pointer"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "chevron-right",
+    className: "w-4 h-4"
+  }))), /*#__PURE__*/React.createElement("div", null, "Zoom: ", docZoom, "%")), /*#__PURE__*/React.createElement("div", {
+    className: "flex-grow overflow-auto p-6 bg-slate-950 flex justify-center"
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "reading-pane",
+    style: {
+      transform: `scale(${docZoom / 100})`,
+      transformOrigin: 'top center'
+    },
+    className: "w-full max-w-2xl bg-white text-slate-900 p-8 sm:p-12 rounded-lg shadow-lg min-h-[600px] border border-slate-200 transition-transform duration-200",
+    dangerouslySetInnerHTML: {
+      __html: activeDoc.pages[docPageIndex]
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "px-4 py-2 border-t border-slate-800 bg-slate-950 rounded-b-2xl flex items-center justify-between text-[11px] text-slate-500"
+  }, /*#__PURE__*/React.createElement("span", null, "Interactive Study Guide Framework"), /*#__PURE__*/React.createElement("span", null, "Google Drive Viewer Mock V2")))), activeTab === 'isc' && /*#__PURE__*/React.createElement("button", {
+    onClick: () => setIsCalcOpen(prev => !prev),
+    className: "fixed bottom-6 right-6 w-14 h-14 bg-violet-600 hover:bg-violet-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-violet-500/25 transition-all hover:scale-105 duration-200 cursor-pointer z-40",
+    title: "Launch Scientific Calculator"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "calculator",
+    className: "w-6 h-6"
+  })), activeTab === 'isc' && isCalcOpen && /*#__PURE__*/React.createElement("div", {
+    className: `fixed ${cornerClasses[calcCorner]} z-50 bg-slate-950 border border-slate-800 rounded-2xl shadow-2xl flex flex-col w-[350px] overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-bottom-5`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "px-3.5 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-1.5"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-[10px] text-slate-500 font-semibold uppercase tracking-wider mr-1"
+  }, "Snap:"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setCalcCorner('tl'),
+    className: `text-[9px] px-1 py-0.5 rounded border ${calcCorner === 'tl' ? 'bg-violet-600 text-white border-violet-500' : 'border-slate-800 text-slate-400 hover:text-white'}`
+  }, "TL"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setCalcCorner('tr'),
+    className: `text-[9px] px-1 py-0.5 rounded border ${calcCorner === 'tr' ? 'bg-violet-600 text-white border-violet-500' : 'border-slate-800 text-slate-400 hover:text-white'}`
+  }, "TR"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setCalcCorner('bl'),
+    className: `text-[9px] px-1 py-0.5 rounded border ${calcCorner === 'bl' ? 'bg-violet-600 text-white border-violet-500' : 'border-slate-800 text-slate-400 hover:text-white'}`
+  }, "BL"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setCalcCorner('br'),
+    className: `text-[9px] px-1 py-0.5 rounded border ${calcCorner === 'br' ? 'bg-violet-600 text-white border-violet-500' : 'border-slate-800 text-slate-400 hover:text-white'}`
+  }, "BR")), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-1.5 ml-2"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setCalcMode(prev => prev === 'expanded' ? 'minimized' : 'expanded'),
+    className: "p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-white cursor-pointer",
+    title: calcMode === 'expanded' ? 'Minimize Calculator' : 'Expand Calculator'
+  }, calcMode === 'expanded' ? /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "minus",
+    className: "w-4 h-4"
+  }) : /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "maximize-2",
+    className: "w-4 h-4"
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setIsCalcOpen(false),
+    className: "p-1 rounded hover:bg-red-500/10 text-red-400 hover:text-white cursor-pointer",
+    title: "Close Calculator"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "x",
+    className: "w-4 h-4"
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "p-4 bg-slate-900/50 border-b border-slate-800/80 text-right flex flex-col justify-end min-h-[90px]"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-slate-500 text-xs truncate select-text leading-normal mb-1 font-mono tracking-tight"
+  }, calcExpression || '0'), /*#__PURE__*/React.createElement("div", {
+    className: "text-2xl font-bold text-white truncate select-text font-mono leading-none"
+  }, calcResult)), /*#__PURE__*/React.createElement("div", {
+    className: "px-3.5 py-1.5 bg-slate-900 border-b border-slate-800/60 flex items-center justify-between text-xs text-slate-400 font-mono"
+  }, /*#__PURE__*/React.createElement("span", null, "Angle:"), /*#__PURE__*/React.createElement("div", {
+    className: "flex bg-slate-950 p-0.5 rounded border border-slate-800"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setCalcAngleMode('deg'),
+    className: `px-2 py-0.5 rounded text-[10px] font-bold ${calcAngleMode === 'deg' ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-500'}`
+  }, "DEG"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setCalcAngleMode('rad'),
+    className: `px-2 py-0.5 rounded text-[10px] font-bold ${calcAngleMode === 'rad' ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-500'}`
+  }, "RAD"))), /*#__PURE__*/React.createElement("div", {
+    className: "p-3 bg-slate-950 grid grid-cols-5 gap-1.5 text-xs text-slate-200"
+  }, calcMode === 'expanded' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('sin('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "sin"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('cos('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "cos"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('tan('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "tan"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('π'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "\u03C0"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('e'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "e"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('sin⁻¹('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "sin\u207B\xB9"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('cos⁻¹('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "cos\u207B\xB9"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('tan⁻¹('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "tan\u207B\xB9"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('log('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "log"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('ln('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "ln"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('^'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "x^y"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('√('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "\u221A"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('('),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, "("), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton(')'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-semibold text-slate-400"
+  }, ")"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('⌫'),
+    className: "py-2.5 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded font-bold flex items-center justify-center"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "delete",
+    className: "w-4 h-4"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: `col-span-5 grid ${calcMode === 'expanded' ? 'grid-cols-5' : 'grid-cols-4'} gap-1.5`
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('C'),
+    className: "py-2.5 bg-red-500/15 text-red-400 hover:bg-red-500 hover:text-white rounded font-bold"
+  }, "C"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('÷'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-bold text-violet-400"
+  }, "\xF7"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('×'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-bold text-violet-400"
+  }, "\xD7"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('−'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-bold text-violet-400"
+  }, "\u2212"), calcMode === 'expanded' && /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('+'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-bold text-violet-400"
+  }, "+"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('7'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "7"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('8'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "8"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('9'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "9"), calcMode === 'minimized' ? /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('+'),
+    className: "py-2.5 bg-slate-900 hover:bg-slate-800 rounded font-bold text-violet-400"
+  }, "+") : /*#__PURE__*/React.createElement("div", {
+    className: "col-span-2"
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('4'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "4"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('5'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "5"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('6'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "6"), calcMode === 'minimized' && /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('⌫'),
+    className: "py-2.5 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded font-bold flex items-center justify-center"
+  }, /*#__PURE__*/React.createElement("i", {
+    "data-lucide": "delete",
+    className: "w-4 h-4"
+  })), calcMode === 'expanded' && /*#__PURE__*/React.createElement("div", {
+    className: "col-span-2"
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('1'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "1"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('2'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "2"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('3'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, "3"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('='),
+    className: `row-span-2 py-6 rounded font-bold text-white ${glowButtonClass}`,
+    style: {
+      gridColumn: calcMode === 'expanded' ? '4 / span 2' : '4'
+    }
+  }, "="), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('0'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200 col-span-2"
+  }, "0"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => handleCalcButton('.'),
+    className: "py-2.5 bg-slate-900/50 hover:bg-slate-800 rounded font-bold text-slate-200"
+  }, ".")))));
+}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(/*#__PURE__*/React.createElement(App, null));
+
+// Initialize Lucide vector components on delay
+setTimeout(() => {
+  if (window.lucide) lucide.createIcons();
+}, 150);
+
   </script>
 </body>
 </html>

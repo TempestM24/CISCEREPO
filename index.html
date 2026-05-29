@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CISCE Docs - ICSE & ISC Resources</title>
+  
+  <!-- Favicon Link Element -->
+  <link id="favicon" rel="icon" type="image/png" href="Imgs/evo.png" />
+  
+  <!-- Tailwind CSS for styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Theme Configurations with Updated Hex Colors -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            darkPrimary: '#000814',
+            darkAccent: '#610202',
+            lightPrimary: '#f1faee',
+            lightAccent: '#669bbc',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- React and Babel CDNs -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-lightPrimary dark:bg-darkPrimary text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300 flex flex-col">
+
+  <div id="root" class="flex flex-col min-h-screen justify-between"></div>
+
+  <!-- React Code with Babel translation -->
+  <script type="text/babel">
+    const repositoryData = {
+      name: "CISCE Repository",
+      type: "root",
+      children: [
+        {
+          name: "ICSE (Class 10)",
+          type: "folder",
+          children: [
+            {
+              name: "Mathematics",
+              type: "folder",
+              children: [
+                { name: "2025 Specimen Paper.pdf", type: "file", size: "1.2 MB", url: "Imgs/evo.png" },
+                { name: "Algebra Revision Notes.pdf", type: "file", size: "850 KB", url: "#" }
+              ]
+            },
+            {
+              name: "Physics",
+              type: "folder",
+              children: [
+                { name: "Selina Solutions - Force.pdf", type: "file", size: "2.4 MB", url: "#" }
+              ]
+            }
+          ]
+        },
+        {
+          name: "ISC (Class 12)",
+          type: "folder",
+          children: [
+            {
+              name: "Computer Science",
+              type: "folder",
+              children: [
+                { name: "Java OOPs Concepts.pdf", type: "file", size: "1.8 MB", url: "#" },
+                { name: "2024 Board Paper Solution.pdf", type: "file", size: "3.1 MB", url: "#" }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    function App() {
+      // Syncing stored theme context state
+      const [theme, setTheme] = React.useState(() => {
+        const savedTheme = localStorage.getItem('theme');
+        return savedTheme ? savedTheme : 'light';
+      });
+
+      const [currentFolder, setCurrentFolder] = React.useState(repositoryData);
+      const [folderHistory, setFolderHistory] = React.useState([repositoryData]);
+      const [searchQuery, setSearchQuery] = React.useState('');
+
+      // DOM Class modifications & synchronized Favicon file paths updates
+      React.useEffect(() => {
+        const rootElement = document.documentElement;
+        const faviconElement = document.getElementById('favicon');
+
+        if (theme === 'dark') {
+          rootElement.classList.add('dark');
+          if (faviconElement) faviconElement.href = 'Imgs/evowt.png';
+        } else {
+          rootElement.classList.remove('dark');
+          if (faviconElement) faviconElement.href = 'Imgs/evo.png';
+        }
+        localStorage.setItem('theme', theme);
+      }, [theme]);
+
+      const toggleTheme = () => {
+        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+      };
+
+      const handleFolderClick = (folder) => {
+        setFolderHistory([...folderHistory, folder]);
+        setCurrentFolder(folder);
+      };
+
+      const handleBreadcrumbClick = (index) => {
+        const newHistory = folderHistory.slice(0, index + 1);
+        setFolderHistory(newHistory);
+        setCurrentFolder(newHistory[newHistory.length - 1]);
+      };
+
+      const getAllFiles = (node, path = "") => {
+        let files = [];
+        if (node.children) {
+          node.children.forEach(child => {
+            files = [...files, ...getAllFiles(child, path ? `${path} > ${node.name}` : node.name)];
+          });
+        } else if (node.type === 'file') {
+          files.push({ ...node, displayPath: path });
+        }
+        return files;
+      };
+
+      const allFiles = getAllFiles(repositoryData);
+      const filteredFiles = allFiles.filter(file =>
+        file.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      // Triggers vector rendering for freshly updated state components
+      React.useEffect(() => {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      }, [currentFolder, searchQuery, theme]);
+
+      // Detect if we are on the home/root screen
+      const isRoot = currentFolder.type === 'root';
+
+      return (
+        <div className="flex flex-col min-h-screen w-full">
+          {/* Main App Container Wrapper */}
+          <div className="flex-grow">
+            {/* Navbar wrapper layouts */}
+            <nav className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-300">
+              <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+                
+                {/* Dynamic Header Box */}
+                <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleBreadcrumbClick(0)}>
+                  <img 
+                    src={theme === 'light' ? 'Imgs/evo.png' : 'Imgs/evowt.png'} 
+                    alt="Evo Logo" 
+                    className="h-8 w-8 object-contain rounded-md transition-all duration-300 transform hover:scale-105"
+                    onError={(e) => { e.target.src = 'https://placeholder.co/32' }} 
+                  />
+                  <span className="font-bold text-xl tracking-tight text-gray-800 dark:text-white">CISCE Docs</span>
+                </div>
+
+                {/* Theme Toggle Wrapper with Dynamic Hint */}
+                <div className="flex items-center space-x-3">
+                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400 transition-colors hidden sm:inline">
+                    {theme === 'light' ? "Switch to Dark" : "Switch to Light"}
+                  </span>
+                  <button 
+                    onClick={toggleTheme}
+                    className="p-2.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700 transition-all border border-gray-200 dark:border-slate-700 flex items-center justify-center"
+                    aria-label="Toggle Theme"
+                  >
+                    {theme === 'light' ? (
+                      <i data-lucide="moon" className="w-5 h-5 text-slate-800"></i>
+                    ) : (
+                      <i data-lucide="sun" className="w-5 h-5 text-amber-400 dark:invert dark:brightness-200"></i>
+                    )}
+                  </button>
+                </div>
+
+              </div>
+            </nav>
+
+            {/* Main Workspace Frame */}
+            <main className="max-w-6xl mx-auto px-4 py-8">
+              
+              {/* Search Input Field */}
+              <div className="relative mb-8">
+                <span className="absolute left-4 top-3.5 text-gray-400">
+                  <i data-lucide="search" className="w-5 h-5"></i>
+                </span>
+                <input
+                  type="text"
+                  placeholder="Search across all ICSE & ISC study materials, notes, past papers..."
+                  className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-lightAccent dark:focus:ring-darkAccent text-gray-900 dark:text-white transition-all"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+
+              {searchQuery ? (
+                /* Global Panel Match View Container */
+                <div>
+                  <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+                    Search Results ({filteredFiles.length})
+                  </h2>
+                  {filteredFiles.length > 0 ? (
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 divide-y divide-gray-100 dark:divide-slate-700">
+                      {filteredFiles.map((file, idx) => (
+                        <div key={idx} className="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                          <div className="flex items-center space-x-3">
+                            <i data-lucide="file-text" className="w-5 h-5 text-red-500 flex-shrink-0"></i>
+                            <div>
+                              <p className="font-medium text-gray-800 dark:text-gray-200">{file.name}</p>
+                              <p className="text-xs text-gray-400 dark:text-gray-400">{file.displayPath} • {file.size}</p>
+                            </div>
+                          </div>
+                          <a href={file.url} target="_blank" className="p-2 text-gray-400 hover:text-lightAccent dark:hover:text-lightAccent rounded-lg">
+                            <i data-lucide="download" className="w-5 h-5"></i>
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12 text-gray-500 dark:text-gray-400">No documents found.</div>
+                  )}
+                </div>
+              ) : (
+                /* Standard Grid Directories Explorer Tree */
+                <div>
+                  {/* Show main welcome title on home screen, or current folder name when deep browsing */}
+                  <h1 className="text-xl font-bold mb-4 text-lightAccent dark:text-darkAccent tracking-wide transition-colors duration-300">
+                    {isRoot ? "Study Materials" : currentFolder.name}
+                  </h1>
+
+                  {/* Path Navigation Line Links */}
+                  <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6 overflow-x-auto py-1">
+                    {folderHistory.map((folder, index) => (
+                      <div key={index} className="flex items-center flex-shrink-0">
+                        {index > 0 && <span className="mx-1 text-gray-400">/</span>}
+                        <button
+                          onClick={() => handleBreadcrumbClick(index)}
+                          className={`hover:text-lightAccent dark:hover:text-lightAccent font-medium transition-colors ${
+                            index === folderHistory.length - 1 ? 'text-lightAccent dark:text-lightAccent font-semibold' : ''
+                          }`}
+                        >
+                          {folder.name}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Main Directory Display Grid layout mappings */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {currentFolder.children && currentFolder.children.map((item, index) => (
+                      <div key={index}>
+                        {item.type === 'folder' ? (
+                          /* Directory Card Components */
+                          <button
+                            onClick={() => handleFolderClick(item)}
+                            className="w-full text-left p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 hover:border-lightAccent dark:hover:border-darkAccent hover:shadow-md transition-all flex items-center justify-between group"
+                          >
+                            <div className="flex items-center space-x-3 truncate">
+                              <i data-lucide="folder" className="w-6 h-6 text-lightAccent dark:text-darkAccent flex-shrink-0"></i>
+                              <span className="font-medium text-gray-700 dark:text-gray-200 truncate">{item.name}</span>
+                            </div>
+                            <span className="text-gray-400 group-hover:translate-x-1 transition-transform">➔</span>
+                          </button>
+                        ) : (
+                          /* Document File Card Components */
+                          <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 flex items-center justify-between hover:shadow-md transition-all">
+                            <div className="flex items-center space-x-3 truncate">
+                              <i data-lucide="file-text" className="w-6 h-6 text-red-500 flex-shrink-0"></i>
+                              <div className="truncate">
+                                <p className="font-medium text-gray-700 dark:text-gray-200 truncate" title={item.name}>{item.name}</p>
+                                <p className="text-xs text-gray-400 dark:text-gray-400">{item.size}</p>
+                              </div>
+                            </div>
+                            <a href={item.url} target="_blank" className="p-2 text-gray-400 hover:text-lightAccent dark:hover:text-lightAccent rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700">
+                              <i data-lucide="download" className="w-5 h-5"></i>
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </main>
+          </div>
+
+          {/* Fully Responsive Adaptable Footer Frame */}
+          <footer className="w-full py-6 mt-12 border-t border-gray-200 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/40 backdrop-blur-sm transition-colors duration-300">
+            <div className="max-w-6xl mx-auto px-4 text-center space-y-1.5">
+              <p className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wide transition-colors">
+                <strong>NOT</strong> affiliated to the Council for the Indian Secondary Certificate Examinations CISCE
+              </p>
+              <p className="text-xs sm:text-sm font-semibold text-gray-400 dark:text-gray-500 transition-colors">
+                Developed by students for students
+              </p>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+
+    // Lucide initialization routine
+    setTimeout(() => { if(window.lucide) lucide.createIcons(); }, 150);
+  </script>
+</body>
+</html>

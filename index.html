@@ -6,7 +6,7 @@
   <title>CISCE Docs - ICSE & ISC Resources</title>
   
   <!-- Favicon Link Element -->
-  <link id="favicon" rel="icon" type="image/png" href="Imgs/evo.png" />
+  <link id="favicon" rel="icon" type="image/png" href="evo.png" />
   
   <!-- Tailwind CSS for styling -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -54,7 +54,7 @@
               name: "Mathematics",
               type: "folder",
               children: [
-                { name: "2025 Specimen Paper.pdf", type: "file", size: "1.2 MB", url: "Imgs/evo.png" },
+                { name: "2025 Specimen Paper.pdf", type: "file", size: "1.2 MB", url: "evo.png" },
                 { name: "Algebra Revision Notes.pdf", type: "file", size: "850 KB", url: "#" }
               ]
             },
@@ -102,10 +102,10 @@
 
         if (theme === 'dark') {
           rootElement.classList.add('dark');
-          if (faviconElement) faviconElement.href = 'Imgs/evowt.png';
+          if (faviconElement) faviconElement.href = 'evowt.png';
         } else {
           rootElement.classList.remove('dark');
-          if (faviconElement) faviconElement.href = 'Imgs/evo.png';
+          if (faviconElement) faviconElement.href = 'evo.png';
         }
         localStorage.setItem('theme', theme);
       }, [theme]);
@@ -163,7 +163,7 @@
                 {/* Dynamic Header Box */}
                 <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleBreadcrumbClick(0)}>
                   <img 
-                    src={theme === 'light' ? 'Imgs/evo.png' : 'Imgs/evowt.png'} 
+                    src={theme === 'light' ? 'evo.png' : 'evowt.png'} 
                     alt="Evo Logo" 
                     className="h-8 w-8 object-contain rounded-md transition-all duration-300 transform hover:scale-105"
                     onError={(e) => { e.target.src = 'https://placeholder.co/32' }} 

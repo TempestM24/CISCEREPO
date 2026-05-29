@@ -6,7 +6,7 @@
   <title>CISCE Docs - ICSE & ISC Resources</title>
   
   <!-- Dynamic Favicon Link Element -->
-  <link id="favicon" rel="icon" type="image/png" href="Imgs/icse-dark.png" />
+  <link id="favicon" rel="icon" type="image/png" href="icse-dark.png" />
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -447,7 +447,7 @@ function App() {
 
     // Dynamically compute the logo/favicon source path based on selected class and theme
     const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
-    const logoPath = `Imgs/${logoName}`;
+    const logoPath = `${logoName}`;
     if (faviconElement) {
       faviconElement.href = logoPath;
     }
@@ -619,7 +619,7 @@ function App() {
     }
   };
   const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
-  const logoPath = `Imgs/${logoName}`;
+  const logoPath = `${logoName}`;
   const accentColor = activeTab === 'icse' ? 'text-icseCyan' : 'text-iscPurple';
   const borderHoverColor = activeTab === 'icse' ? 'hover:border-icseCyan shadow-cyanGlow' : 'hover:border-iscPurple shadow-purpleGlow';
   const glowButtonClass = activeTab === 'icse' ? 'bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.45)]' : 'bg-violet-600 shadow-[0_0_15px_rgba(139,92,246,0.45)]';

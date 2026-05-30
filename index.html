@@ -6,7 +6,7 @@
   <title>CISCE Docs - ICSE & ISC Resources</title>
   
   <!-- Dynamic Favicon Link Element -->
-  <link id="favicon" rel="icon" type="image/png" href="Imgs/icse-dark.png" />
+  <link id="favicon" rel="icon" type="image/png" href="icse-dark.png" />
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -86,12 +86,12 @@
     }
     
     .dark .textured-bg {
-      background-image: linear-gradient(rgba(7, 7, 10, 0.55), rgba(7, 7, 10, 0.55)), url('Imgs/texture-dark.png');
+      background-image: linear-gradient(rgba(7, 7, 10, 0.55), rgba(7, 7, 10, 0.55)), url('texture-dark.png');
       background-color: #07070a !important;
     }
     
     .light .textured-bg, html:not(.dark) .textured-bg {
-      background-image: url('Imgs/texture-light.jpg');
+      background-image: url('texture-light.jpg');
     }
 
     /* Core theme color alignment matching seamless charcoal textures */
@@ -874,7 +874,7 @@ function App() {
 
     // Dynamically compute the logo/favicon source path based on selected class and theme
     const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
-    const logoPath = `Imgs/${logoName}`;
+    const logoPath = `${logoName}`;
     if (faviconElement) {
       faviconElement.href = logoPath;
     }
@@ -1066,13 +1066,13 @@ function App() {
     }
   };
   const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
-  const logoPath = `Imgs/${logoName}`;
+  const logoPath = `${logoName}`;
   const activeLogoId = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}`;
   const logoOptions = [
-    { id: 'icse-dark', src: 'Imgs/icse-dark.png' },
-    { id: 'icse-light', src: 'Imgs/icse-light.png' },
-    { id: 'isc-dark', src: 'Imgs/isc-dark.png' },
-    { id: 'isc-light', src: 'Imgs/isc-light.png' }
+    { id: 'icse-dark', src: 'icse-dark.png' },
+    { id: 'icse-light', src: 'icse-light.png' },
+    { id: 'isc-dark', src: 'isc-dark.png' },
+    { id: 'isc-light', src: 'isc-light.png' }
   ];
   const accentColor = activeTab === 'icse' ? 'text-icseCyan' : 'text-iscPurple';
   const borderHoverColor = activeTab === 'icse' 

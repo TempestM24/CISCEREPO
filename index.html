@@ -6,7 +6,7 @@
   <title>CISCE Docs - ICSE & ISC Resources</title>
   
   <!-- Dynamic Favicon Link Element -->
-  <link id="favicon" rel="icon" type="image/png" href="icse-dark.png" />
+  <link id="favicon" rel="icon" type="image/png" href="Imgs/icse-dark.png" />
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -78,6 +78,81 @@
     .glow-purple-active {
       box-shadow: 0 0 15px 2px rgba(139, 92, 246, 0.55);
       border-color: #8b5cf6;
+    }
+    
+    .textured-bg {
+      background-repeat: repeat;
+      background-size: 250px 250px;
+    }
+    
+    .dark .textured-bg {
+      background-image: linear-gradient(rgba(7, 7, 10, 0.55), rgba(7, 7, 10, 0.55)), url('Imgs/texture-dark.png');
+      background-color: #07070a !important;
+    }
+    
+    .light .textured-bg, html:not(.dark) .textured-bg {
+      background-image: url('Imgs/texture-light.jpg');
+    }
+
+    /* Core theme color alignment matching seamless charcoal textures */
+    .dark body {
+      background-color: #040405 !important;
+      color: #e2e8f0 !important;
+    }
+    .dark .bg-white, .dark .bg-slate-900, .dark .bg-slate-900\/50, .dark .bg-slate-950, .dark .bg-slate-950\/80 {
+      background-color: #0a0a0d !important;
+      border-color: #141419 !important;
+    }
+    .dark .border-slate-200, .dark .border-slate-800, .dark .border-slate-800\/60, .dark .border-slate-800\/80 {
+      border-color: #141419 !important;
+    }
+    .dark .bg-slate-50, .dark .bg-slate-100 {
+      background-color: #0d0d12 !important;
+    }
+    .dark .text-slate-800, .dark .text-slate-700 {
+      color: #cbd5e1 !important;
+    }
+
+    .light body {
+      background-color: #f1f3f6 !important;
+    }
+    .light .bg-slate-50 {
+      background-color: #f7f9fb !important;
+    }
+    
+    /* Premium micro-animations for theme and logo swaps */
+    .logo-animate {
+      animation: logoFadeScale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      transform-origin: center;
+    }
+    
+    @keyframes logoFadeScale {
+      0% {
+        transform: scale(0.8) rotate(-12deg);
+        opacity: 0.4;
+        filter: blur(1px);
+      }
+      100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+        filter: blur(0);
+      }
+    }
+    
+    .theme-icon-transition {
+      animation: smoothRotateScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      transform-origin: center;
+    }
+
+    @keyframes smoothRotateScale {
+      0% {
+        transform: scale(0.6) rotate(-45deg);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+      }
     }
   </style>
 
@@ -221,43 +296,112 @@ const repositoryData = {
         name: "Physics",
         type: "folder",
         children: [{
-          name: "Selina Solutions - Force.pdf",
-          type: "file",
-          size: "2.4 MB",
-          author: "Class 10 Board Panel",
-          pages: ["<h3>Chapter 1: Force, Work, Power and Energy</h3><p><strong>Key Concept:</strong> Turning effect of force. When a force acts on a body which is pivoted at a point, it turns the body about the pivoted point. The turning effect of the force is called the Torque or Moment of Force.</p><p class='mt-2'>$$\\text{Moment of Force} = \\text{Force} (F) \\times \\text{Perpendicular distance} (d)$$</p>", "<h3>Numerical Problem 1:</h3><p>A nut is opened by a wrench of length 15 cm. If the least force required is 4.0 N, find the moment of force needed to turn the nut.</p><p class='mt-2'><strong>Solution:</strong> Given, length of wrench $d = 15\\text{ cm} = 0.15\\text{ m}$. Force $F = 4.0\\text{ N}$.<br/>$\\text{Moment of Force} = F \\times d = 4.0 \\times 0.15 = 0.6\\text{ N m}$.</p>", "<h3>Center of Gravity:</h3><p>The Center of Gravity (C.G.) of a body is the point about which the algebraic sum of moments of weights of all the particles constituting the body is zero. The entire weight of the body can be considered to act at this point.</p><table class='w-full mt-2 text-xs border-collapse border border-slate-700'><thead><tr><th class='border border-slate-700 p-1'>Body Shape</th><th class='border border-slate-700 p-1'>Position of C.G.</th></tr></thead><tbody><tr><td class='border border-slate-700 p-1'>Uniform Ring</td><td class='border border-slate-700 p-1'>Center of Ring</td></tr><tr><td class='border border-slate-700 p-1'>Circular Disc</td><td class='border border-slate-700 p-1'>Geometric Center</td></tr><tr><td class='border border-slate-700 p-1'>Triangle</td><td class='border border-slate-700 p-1'>Centroid</td></tr></tbody></table>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Physics Class 10 Syllabus.pdf",
+            type: "file",
+            size: "820 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE Class X Physics Syllabus</h3><p><strong>Course Structure:</strong></p><ul class='list-disc pl-5 mt-2 space-y-1'><li>1. Force, Work, Power and Energy</li><li>2. Light (Refraction, Lenses, Spectrum)</li><li>3. Sound</li><li>4. Electricity and Magnetism</li><li>5. Heat</li><li>6. Modern Physics</li></ul>"]
+          }]
         }, {
-          name: "Specimen Paper 2025.pdf",
-          type: "file",
-          size: "1.1 MB",
-          author: "CISCE Board Council",
-          pages: ["<h3>ICSE Class X Physics Specimen 2025</h3><p><strong>Section A (40 Marks):</strong> Attempt all questions from this section.</p><p class='mt-2'><strong>Question 1:</strong> Choose the correct alternative.<br/>(i) The unit of moment of force is:<br/>(a) N kg (b) N m (c) N/m (d) kg m/s.<br/><br/><strong>Answer:</strong> (b) N m</p>", "<h3>Section B (40 Marks):</h3><p>Attempt any four questions from this section.</p><p class='mt-2'><strong>Question 5:</strong><br/>(a) State the energy changes that take place in:<br/>1. An electric toaster while in use.<br/>2. A microphone while recording sound.<br/><br/><strong>Answers:</strong><br/>1. Electrical Energy to Heat Energy.<br/>2. Sound Energy to Electrical Energy.</p>"]
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Selina Solutions - Force.pdf",
+            type: "file",
+            size: "2.4 MB",
+            author: "Class 10 Board Panel",
+            pages: ["<h3>Chapter 1: Force, Work, Power and Energy</h3><p><strong>Key Concept:</strong> Turning effect of force. When a force acts on a body which is pivoted at a point, it turns the body about the pivoted point. The turning effect of the force is called the Torque or Moment of Force.</p><p class='mt-2'>$$\\text{Moment of Force} = \\text{Force} (F) \\times \\text{Perpendicular distance} (d)$$</p>", "<h3>Numerical Problem 1:</h3><p>A nut is opened by a wrench of length 15 cm. If the least force required is 4.0 N, find the moment of force needed to turn the nut.</p><p class='mt-2'><strong>Solution:</strong> Given, length of wrench $d = 15\\text{ cm} = 0.15\\text{ m}$. Force $F = 4.0\\text{ N}$.<br/>$\\text{Moment of Force} = F \\times d = 4.0 \\times 0.15 = 0.6\\text{ N m}$.</p>", "<h3>Center of Gravity:</h3><p>The Center of Gravity (C.G.) of a body is the point about which the algebraic sum of moments of weights of all the particles constituting the body is zero. The entire weight of the body can be considered to act at this point.</p><table class='w-full mt-2 text-xs border-collapse border border-slate-700'><thead><tr><th class='border border-slate-700 p-1'>Body Shape</th><th class='border border-slate-700 p-1'>Position of C.G.</th></tr></thead><tbody><tr><td class='border border-slate-700 p-1'>Uniform Ring</td><td class='border border-slate-700 p-1'>Center of Ring</td></tr><tr><td class='border border-slate-700 p-1'>Circular Disc</td><td class='border border-slate-700 p-1'>Geometric Center</td></tr><tr><td class='border border-slate-700 p-1'>Triangle</td><td class='border border-slate-700 p-1'>Centroid</td></tr></tbody></table>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "Specimen Paper 2025.pdf",
+            type: "file",
+            size: "1.1 MB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE Class X Physics Specimen 2025</h3><p><strong>Section A (40 Marks):</strong> Attempt all questions from this section.</p><p class='mt-2'><strong>Question 1:</strong> Choose the correct alternative.<br/>(i) The unit of moment of force is:<br/>(a) N kg (b) N m (c) N/m (d) kg m/s.<br/><br/><strong>Answer:</strong> (b) N m</p>", "<h3>Section B (40 Marks):</h3><p>Attempt any four questions from this section.</p><p class='mt-2'><strong>Question 5:</strong><br/>(a) State the energy changes that take place in:<br/>1. An electric toaster while in use.<br/>2. A microphone while recording sound.<br/><br/><strong>Answers:</strong><br/>1. Electrical Energy to Heat Energy.<br/>2. Sound Energy to Electrical Energy.</p>"]
+          }]
         }]
       }, {
         name: "Chemistry",
         type: "folder",
         children: [{
-          name: "Organic Chemistry Basics.pdf",
-          type: "file",
-          size: "1.5 MB",
-          author: "Student Study Circle",
-          pages: ["<h3>Organic Chemistry: Alkanes, Alkenes, Alkyne</h3><p><strong>Introduction:</strong> Organic compounds are hydrocarbons and their derivatives. Carbon exhibits tetravalency and catenation (self-linking property).</p><p class='mt-2'><strong>Homologous Series:</strong> A group of organic compounds having the same functional group and similar chemical properties in which successive members differ by a $-\\text{CH}_2$ group.</p>", "<h3>Functional Groups:</h3><p>1. Alcohol: $-\\text{OH}$ (Suffix: -ol)<br/>2. Aldehyde: $-\\text{CHO}$ (Suffix: -al)<br/>3. Carboxylic Acid: $-\\text{COOH}$ (Suffix: -oic acid)</p><p class='mt-2'><strong>Example:</strong> Ethanol: $\\text{CH}_3-\\text{CH}_2-\\text{OH}$</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Chemistry Class 10 Syllabus.pdf",
+            type: "file",
+            size: "780 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE Class X Chemistry Syllabus</h3><p><strong>Chapters Covered:</strong></p><ul class='list-disc pl-5 mt-2 space-y-1'><li>1. Periodic Table, Periodic Properties and Variations of Properties</li><li>2. Chemical Bonding</li><li>3. Study of Acids, Bases and Salts</li><li>4. Analytical Chemistry</li><li>5. Mole Concept and Stoichiometry</li><li>6. Electrolysis</li><li>7. Metallurgy</li><li>8. Study of Compounds</li><li>9. Organic Chemistry</li></ul>"]
+          }]
         }, {
-          name: "2024 Board Paper.pdf",
-          type: "file",
-          size: "2.0 MB",
-          author: "CISCE Archive",
-          pages: ["<h3>ICSE 2024 Chemistry Question Paper</h3><p><strong>Time:</strong> 2 Hours | <strong>Max Marks:</strong> 80</p><p class='mt-2'><strong>Question 1:</strong> Fill in the blanks with correct terms:<br/>(i) Electrovalency is shown by ____ compounds (ionic / covalent).<br/>(ii) The gas evolved when calcium carbonate reacts with dilute HCl is ____ (carbon dioxide / chlorine).</p>"]
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Organic Chemistry Basics.pdf",
+            type: "file",
+            size: "1.5 MB",
+            author: "Student Study Circle",
+            pages: ["<h3>Organic Chemistry: Alkanes, Alkenes, Alkyne</h3><p><strong>Introduction:</strong> Organic compounds are hydrocarbons and their derivatives. Carbon exhibits tetravalency and catenation (self-linking property).</p><p class='mt-2'><strong>Homologous Series:</strong> A group of organic compounds having the same functional group and similar chemical properties in which successive members differ by a $-\\text{CH}_2$ group.</p>", "<h3>Functional Groups:</h3><p>1. Alcohol: $-\\text{OH}$ (Suffix: -ol)<br/>2. Aldehyde: $-\\text{CHO}$ (Suffix: -al)<br/>3. Carboxylic Acid: $-\\text{COOH}$ (Suffix: -oic acid)</p><p class='mt-2'><strong>Example:</strong> Ethanol: $\\text{CH}_3-\\text{CH}_2-\\text{OH}$</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Board Paper.pdf",
+            type: "file",
+            size: "2.0 MB",
+            author: "CISCE Archive",
+            pages: ["<h3>ICSE 2024 Chemistry Question Paper</h3><p><strong>Time:</strong> 2 Hours | <strong>Max Marks:</strong> 80</p><p class='mt-2'><strong>Question 1:</strong> Fill in the blanks with correct terms:<br/>(i) Electrovalency is shown by ____ compounds (ionic / covalent).<br/>(ii) The gas evolved when calcium carbonate reacts with dilute HCl is ____ (carbon dioxide / chlorine).</p>"]
+          }]
         }]
       }, {
         name: "Biology",
         type: "folder",
         children: [{
-          name: "Plant Physiology Notes.pdf",
-          type: "file",
-          size: "1.2 MB",
-          author: "Greenwood Academy",
-          pages: ["<h3>Plant Physiology: Photosynthesis</h3><p>Photosynthesis is the process by which living plant cells containing chlorophyll produce food (glucose) from carbon dioxide and water in the presence of sunlight.</p><p class='mt-2'>$$\\text{6CO}_2 + \\text{12H}_2\\text{O} \\xrightarrow[\\text{Sunlight}]{\\text{Chlorophyll}} \\text{C}_6\\text{H}_{12}\\text{O}_6 + \\text{6H}_2\\text{O} + \\text{6O}_2$$</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Biology Class 10 Syllabus.pdf",
+            type: "file",
+            size: "690 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE Class X Biology Syllabus</h3><p><strong>Syllabus Outline:</strong></p><ul class='list-disc pl-5 mt-2 space-y-1'><li>1. Basic Biology (Cell Cycle, Genetics)</li><li>2. Plant Physiology (Absorption, Transpiration, Photosynthesis)</li><li>3. Human Anatomy and Physiology (Circulatory, Excretory, Nervous, Endocrine, Reproductive)</li><li>4. Population and Pollution</li></ul>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Plant Physiology Notes.pdf",
+            type: "file",
+            size: "1.2 MB",
+            author: "Greenwood Academy",
+            pages: ["<h3>Plant Physiology: Photosynthesis</h3><p>Photosynthesis is the process by which living plant cells containing chlorophyll produce food (glucose) from carbon dioxide and water in the presence of sunlight.</p><p class='mt-2'>$$\\text{6CO}_2 + \\text{12H}_2\\text{O} \\xrightarrow[\\text{Sunlight}]{\\text{Chlorophyll}} \\text{C}_6\\text{H}_{12}\\text{O}_6 + \\text{6H}_2\\text{O} + \\text{6O}_2$$</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Specimen Paper.pdf",
+            type: "file",
+            size: "1.0 MB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE Class X Biology Specimen Paper</h3><p><strong>Section A:</strong> MCQ & Short Answers.<br/>1. Which hormone regulates glucose levels?<br/>(a) Thyroxine (b) Insulin (c) Adrenaline (d) Growth Hormone.<br/><strong>Answer:</strong> (b) Insulin</p>"]
+          }]
         }]
       }]
     }, {
@@ -268,21 +412,75 @@ const repositoryData = {
         name: "History & Civics",
         type: "folder",
         children: [{
-          name: "Indian National Movement.pdf",
-          type: "file",
-          size: "1.8 MB",
-          author: "Student Guild",
-          pages: ["<h3>The Indian National Movement (1885 - 1916)</h3><p><strong>Foundation of INC:</strong> The Indian National Congress was founded in December 1885 by A.O. Hume. The first session was held in Bombay under W.C. Bonnerjee.</p>", "<h3>Assertive Nationalism:</h3><p>Key leaders: Bal Gangadhar Tilak, Lala Lajpat Rai, Bipin Chandra Pal (Lal-Bal-Pal). They believed in radical action, swadeshi, and boycott.</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "History & Civics Class 10 Syllabus.pdf",
+            type: "file",
+            size: "620 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE History & Civics Syllabus</h3><p><strong>Part 1: Civics</strong> (Union Legislature, Union Executive, Judiciary)<br/><strong>Part 2: History</strong> (Indian National Movement, First World War, Rise of Dictatorships, Second World War, United Nations)</p>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Indian National Movement.pdf",
+            type: "file",
+            size: "1.8 MB",
+            author: "Student Guild",
+            pages: ["<h3>The Indian National Movement (1885 - 1916)</h3><p><strong>Foundation of INC:</strong> The Indian National Congress was founded in December 1885 by A.O. Hume. The first session was held in Bombay under W.C. Bonnerjee.</p>", "<h3>Assertive Nationalism:</h3><p>Key leaders: Bal Gangadhar Tilak, Lala Lajpat Rai, Bipin Chandra Pal (Lal-Bal-Pal). They believed in radical action, swadeshi, and boycott.</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Board Paper.pdf",
+            type: "file",
+            size: "1.4 MB",
+            author: "CISCE Archive",
+            pages: ["<h3>ICSE 2024 History & Civics Paper</h3><p><strong>Question 1:</strong> Identify the term of the Lok Sabha. (5 Years)<br/><strong>Question 2:</strong> Who was the first President of the Indian National Congress? (W.C. Bonnerjee)</p>"]
+          }]
         }]
       }, {
         name: "Geography",
         type: "folder",
         children: [{
-          name: "Topographical Maps Study Guide.pdf",
-          type: "file",
-          size: "3.5 MB",
-          author: "Geo Scholars",
-          pages: ["<h3>Interpretation of Topographic Sheets</h3><p><strong>Grid References:</strong> Eastings are vertical lines running north-south, and Northings are horizontal lines running east-west. A 4-figure grid reference is used to locate a 1 km grid square.</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Geography Class 10 Syllabus.pdf",
+            type: "file",
+            size: "810 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE Geography Class 10 Syllabus</h3><p><strong>Topics:</strong></p><ul class='list-disc pl-5 mt-2 space-y-1'><li>1. Map Work (Topographic Survey Sheets)</li><li>2. Location, Extent and Physical Features of India</li><li>3. Climate, Soils, Natural Vegetation</li><li>4. Water Resources, Mineral Resources</li><li>5. Agriculture, Industries, Transport, Waste Management</li></ul>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Topographical Maps Study Guide.pdf",
+            type: "file",
+            size: "3.5 MB",
+            author: "Geo Scholars",
+            pages: ["<h3>Interpretation of Topographic Sheets</h3><p><strong>Grid References:</strong> Eastings are vertical lines running north-south, and Northings are horizontal lines running east-west. A 4-figure grid reference is used to locate a 1 km grid square.</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Specimen Paper.pdf",
+            type: "file",
+            size: "1.9 MB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE Geography Specimen Paper</h3><p><strong>Section A:</strong> Map Pointing & Toposheet Analysis.</p>"]
+          }]
         }]
       }]
     }, {
@@ -293,11 +491,38 @@ const repositoryData = {
         name: "Art",
         type: "folder",
         children: [{
-          name: "Still Life Painting Techniques.pdf",
-          type: "file",
-          size: "2.2 MB",
-          author: "Fine Arts Lab",
-          pages: ["<h3>Still Life Painting Basics</h3><p>Still life painting focuses on inanimate subject matter. Techniques include hatching, cross-hatching, stippling, and smooth blending to establish realistic lighting and shadow depth.</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Art Class 10 Syllabus.pdf",
+            type: "file",
+            size: "450 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ICSE Art Syllabus</h3><p>The syllabus includes Drawing and Painting from Still Life, Nature Study, and Applied Art / Graphic Design compositions.</p>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Still Life Painting Techniques.pdf",
+            type: "file",
+            size: "2.2 MB",
+            author: "Fine Arts Lab",
+            pages: ["<h3>Still Life Painting Basics</h3><p>Still life painting focuses on inanimate subject matter. Techniques include hatching, cross-hatching, stippling, and smooth blending to establish realistic lighting and shadow depth.</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Art Assignment Guidelines.pdf",
+            type: "file",
+            size: "800 KB",
+            author: "CISCE Archive",
+            pages: ["<h3>ICSE Art 2024 Board Assignment</h3><p>Guidelines for submitting the final board project portfolio including still life and color theory studies.</p>"]
+          }]
         }]
       }]
     }]
@@ -313,53 +538,149 @@ const repositoryData = {
         name: "Mathematics",
         type: "folder",
         children: [{
-          name: "Calculus - Integration Notes.pdf",
-          type: "file",
-          size: "2.5 MB",
-          author: "Dr. Roy's Classes",
-          pages: ["<h3>ISC Mathematics: Indefinite Integral</h3><p>Integration is the inverse process of differentiation. The standard formulas are:</p><ul class='list-disc pl-5 mt-2 space-y-1'><li>$\\int x^n dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$</li><li>$\\int e^x dx = e^x + C$</li><li>$\\int \\frac{1}{x} dx = \\ln|x| + C$</li></ul>", "<h3>Integration by Parts:</h3><p>Used to integrate the product of two functions. Natively abbreviated as the ILATE rule (Inverse, Logarithmic, Algebraic, Trigonometric, Exponential).</p><p class='mt-2'>$$\\int u \\, v \\, dx = u \\int v \\, dx - \\int \\left( \\frac{du}{dx} \\int v \\, dx \\right) dx$$</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Mathematics Class 12 Syllabus.pdf",
+            type: "file",
+            size: "910 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Class XII Mathematics Syllabus</h3><p><strong>Section A:</strong> Relations and Functions, Algebra, Calculus, Probability.<br/><strong>Section B:</strong> Vectors, Three-Dimensional Geometry, Application of Integrals.<br/><strong>Section C:</strong> Application of Calculus, Linear Regression, Linear Programming.</p>"]
+          }]
         }, {
-          name: "Specimen Paper 2025.pdf",
-          type: "file",
-          size: "1.3 MB",
-          author: "CISCE Board Council",
-          pages: ["<h3>ISC Class XII Mathematics Specimen 2025</h3><p><strong>Section A (80 Marks):</strong> Compulsory Section.</p><p class='mt-2'><strong>Question 1:</strong> Evaluate the limit:<br/>$\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$.<br/><strong>Answer:</strong> 1 (using L'Hôpital's rule or standard trigonometric limits).</p>"]
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Calculus - Integration Notes.pdf",
+            type: "file",
+            size: "2.5 MB",
+            author: "Dr. Roy's Classes",
+            pages: ["<h3>ISC Mathematics: Indefinite Integral</h3><p>Integration is the inverse process of differentiation. The standard formulas are:</p><ul class='list-disc pl-5 mt-2 space-y-1'><li>$\\int x^n dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)$</li><li>$\\int e^x dx = e^x + C$</li><li>$\\int \\frac{1}{x} dx = \\ln|x| + C$</li></ul>", "<h3>Integration by Parts:</h3><p>Used to integrate the product of two functions. Natively abbreviated as the ILATE rule (Inverse, Logarithmic, Algebraic, Trigonometric, Exponential).</p><p class='mt-2'>$$\\int u \\, v \\, dx = u \\int v \\, dx - \\int \\left( \\frac{du}{dx} \\int v \\, dx \\right) dx$$</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "Specimen Paper 2025.pdf",
+            type: "file",
+            size: "1.3 MB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Class XII Mathematics Specimen 2025</h3><p><strong>Section A (80 Marks):</strong> Compulsory Section.</p><p class='mt-2'><strong>Question 1:</strong> Evaluate the limit:<br/>$\\lim_{x \\to 0} \\frac{\\sin(x)}{x}$.<br/><strong>Answer:</strong> 1 (using L'Hôpital's rule or standard trigonometric limits).</p>"]
+          }]
         }]
       }, {
         name: "Physics",
         type: "folder",
         children: [{
-          name: "Electromagnetism Solved Problems.pdf",
-          type: "file",
-          size: "3.0 MB",
-          author: "Physics Lab Tech",
-          pages: ["<h3>Electromagnetism: Gauss's Law</h3><p>Gauss's law states that the total electric flux out of any closed surface is equal to the net charge enclosed by the surface divided by the permittivity of free space.</p><p class='mt-2'>$$\\Phi_E = \\oint \\vec{E} \\cdot d\\vec{A} = \\frac{q_{\\text{enclosed}}}{\\varepsilon_0}$$</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Physics Class 12 Syllabus.pdf",
+            type: "file",
+            size: "870 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Class XII Physics Syllabus</h3><p><strong>Syllabus units:</strong> Electrostatics, Current Electricity, Magnetic Effects, Electromagnetic Induction, Optics, Dual Nature of Matter, Atoms and Nuclei, Electronic Devices.</p>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Electromagnetism Solved Problems.pdf",
+            type: "file",
+            size: "3.0 MB",
+            author: "Physics Lab Tech",
+            pages: ["<h3>Electromagnetism: Gauss's Law</h3><p>Gauss's law states that the total electric flux out of any closed surface is equal to the net charge enclosed by the surface divided by the permittivity of free space.</p><p class='mt-2'>$$\\Phi_E = \\oint \\vec{E} \\cdot d\\vec{A} = \\frac{q_{\\text{enclosed}}}{\\varepsilon_0}$$</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Specimen Paper.pdf",
+            type: "file",
+            size: "1.5 MB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Class XII Physics Specimen Paper</h3><p><strong>Section A:</strong> Objective type questions.<br/>1. The capacity of a parallel plate capacitor is independent of:<br/>(a) Area (b) Medium (c) Distance (d) Metal of plates.<br/><strong>Answer:</strong> (d) Metal of plates.</p>"]
+          }]
         }]
       }, {
         name: "Chemistry",
         type: "folder",
         children: [{
-          name: "Coordination Compounds Guide.pdf",
-          type: "file",
-          size: "1.7 MB",
-          author: "Chem Notes",
-          pages: ["<h3>Coordination Complexes & Ligands</h3><p>Coordination compounds are chemical complexes consisting of a central metal atom/ion surrounded by molecules or anions called ligands (Lewis bases).</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Chemistry Class 12 Syllabus.pdf",
+            type: "file",
+            size: "820 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Class XII Chemistry Syllabus</h3><p><strong>Physical, Inorganic, & Organic Units:</strong> Solutions, Electrochemistry, Chemical Kinetics, d and f Block Elements, Coordination Compounds, Haloalkanes, Alcohols, Aldehydes, Carboxylic Acids, Organic Nitrogen, Biomolecules.</p>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Coordination Compounds Guide.pdf",
+            type: "file",
+            size: "1.7 MB",
+            author: "Chem Notes",
+            pages: ["<h3>Coordination Complexes & Ligands</h3><p>Coordination compounds are chemical complexes consisting of a central metal atom/ion surrounded by molecules or anions called ligands (Lewis bases).</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Specimen Paper.pdf",
+            type: "file",
+            size: "1.6 MB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Class XII Chemistry Specimen Paper</h3><p><strong>Section A:</strong> MCQ & Concepts.<br/>1. What is the unit of rate constant for a zero order reaction?<br/><strong>Answer:</strong> $\\text{mol L}^{-1} \\text{s}^{-1}$</p>"]
+          }]
         }]
       }, {
         name: "Computer Science",
         type: "folder",
         children: [{
-          name: "Java OOPs Concepts.pdf",
-          type: "file",
-          size: "1.8 MB",
-          author: "Bitwise Academy",
-          pages: ["<h3>Java OOPs: Encapsulation & Inheritance</h3><p>Object-Oriented Programming (OOP) in Java relies on core principles: Inheritance, Polymorphism, Abstraction, and Encapsulation.</p><p class='mt-2'><strong>Inheritance Code Example:</strong></p><pre class='bg-slate-900 text-cyan-400 p-2 rounded text-xs mt-2'>class Animal {\n  void eat() { System.out.println(\"Eating...\"); }\n}\nclass Dog extends Animal {\n  void bark() { System.out.println(\"Barking...\"); }\n}</pre>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Computer Science Class 12 Syllabus.pdf",
+            type: "file",
+            size: "680 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Class XII Computer Science Syllabus</h3><p><strong>Paper 1: Theory (70 Marks):</strong> Boolean Algebra, Computer Hardware, Inheritance, Polymorphism, Recursion, Complex Data Structures.<br/><strong>Paper 2: Practical (30 Marks):</strong> Java programming problems.</p>"]
+          }]
         }, {
-          name: "2024 Board Paper Solution.pdf",
-          type: "file",
-          size: "3.1 MB",
-          author: "CISCE Board Council",
-          pages: ["<h3>ISC 2024 Computer Science Solved Paper</h3><p><strong>Section A:</strong> Theory & Recursion Solutions.</p><p class='mt-2'><strong>Question 3:</strong> Write a recursive method to return the sum of digits of a number.<br/><pre class='bg-slate-900 text-cyan-400 p-2 rounded text-xs mt-1'>int sumDigits(int n) {\n  if (n == 0) return 0;\n  return (n % 10) + sumDigits(n / 10);\n}</pre></p>"]
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Java OOPs Concepts.pdf",
+            type: "file",
+            size: "1.8 MB",
+            author: "Bitwise Academy",
+            pages: ["<h3>Java OOPs: Encapsulation & Inheritance</h3><p>Object-Oriented Programming (OOP) in Java relies on core principles: Inheritance, Polymorphism, Abstraction, and Encapsulation.</p><p class='mt-2'><strong>Inheritance Code Example:</strong></p><pre class='bg-slate-900 text-cyan-400 p-2 rounded text-xs mt-2'>class Animal {\n  void eat() { System.out.println(\"Eating...\"); }\n}\nclass Dog extends Animal {\n  void bark() { System.out.println(\"Barking...\"); }\n}</pre>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Board Paper Solution.pdf",
+            type: "file",
+            size: "3.1 MB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC 2024 Computer Science Solved Paper</h3><p><strong>Section A:</strong> Theory & Recursion Solutions.</p><p class='mt-2'><strong>Question 3:</strong> Write a recursive method to return the sum of digits of a number.<br/><pre class='bg-slate-900 text-cyan-400 p-2 rounded text-xs mt-1'>int sumDigits(int n) {\n  if (n == 0) return 0;\n  return (n % 10) + sumDigits(n / 10);\n}</pre></p>"]
+          }]
         }]
       }]
     }, {
@@ -370,21 +691,75 @@ const repositoryData = {
         name: "English Literature",
         type: "folder",
         children: [{
-          name: "The Tempest Act-wise Analysis.pdf",
-          type: "file",
-          size: "1.9 MB",
-          author: "Bard Lit Guild",
-          pages: ["<h3>William Shakespeare's The Tempest</h3><p><strong>Act I, Scene i:</strong> The play opens on a ship at sea during a violent tempest. Prospero, the exiled Duke of Milan, has conjured the storm using magic to bring his enemies to the island.</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "English Literature Class 12 Syllabus.pdf",
+            type: "file",
+            size: "540 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC English Literature Syllabus</h3><p>Plays: William Shakespeare's <em>The Tempest</em>.<br/>Prose and Poetry selections from modern writers.</p>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "The Tempest Act-wise Analysis.pdf",
+            type: "file",
+            size: "1.9 MB",
+            author: "Bard Lit Guild",
+            pages: ["<h3>William Shakespeare's The Tempest</h3><p><strong>Act I, Scene i:</strong> The play opens on a ship at sea during a violent tempest. Prospero, the exiled Duke of Milan, has conjured the storm using magic to bring his enemies to the island.</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Specimen Paper.pdf",
+            type: "file",
+            size: "1.2 MB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC English Specimen Question Paper</h3><p>Essay topics and literature passage analysis prompts.</p>"]
+          }]
         }]
       }, {
         name: "Economics",
         type: "folder",
         children: [{
-          name: "Theory of Demand and Supply.pdf",
-          type: "file",
-          size: "1.4 MB",
-          author: "Fiscal Hub",
-          pages: ["<h3>Microeconomics: Supply and Demand Curves</h3><p>Demand is the quantity of a good that consumers are willing and able to purchase at various prices. The Law of Demand states that price and quantity demanded are inversely related, ceteris paribus.</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Economics Class 12 Syllabus.pdf",
+            type: "file",
+            size: "730 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Class XII Economics Syllabus</h3><p>Microeconomics (Demand, Supply, Cost, Market Structure), Macroeconomics (National Income, Money and Banking, Balance of Payments, Public Finance).</p>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Theory of Demand and Supply.pdf",
+            type: "file",
+            size: "1.4 MB",
+            author: "Fiscal Hub",
+            pages: ["<h3>Microeconomics: Supply and Demand Curves</h3><p>Demand is the quantity of a good that consumers are willing and able to purchase at various prices. The Law of Demand states that price and quantity demanded are inversely related, ceteris paribus.</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Board Paper.pdf",
+            type: "file",
+            size: "1.8 MB",
+            author: "CISCE Archive",
+            pages: ["<h3>ISC Economics 2024 Board Paper</h3><p>Section A, B, and C analytical macroeconomics questions.</p>"]
+          }]
         }]
       }]
     }, {
@@ -395,11 +770,38 @@ const repositoryData = {
         name: "Fashion Designing",
         type: "folder",
         children: [{
-          name: "Introduction to Textile Science.pdf",
-          type: "file",
-          size: "2.8 MB",
-          author: "Atelier Studio",
-          pages: ["<h3>Textile Fibers Classification</h3><p>Fibers are classified into Natural (cotton, wool, silk) and Synthetic (nylon, polyester, acrylic). Textile science explores fiber tensile strength, thermal properties, and moisture absorption.</p>"]
+          name: "Syllabus",
+          type: "folder",
+          description: "Syllabus files",
+          children: [{
+            name: "Fashion Designing Class 12 Syllabus.pdf",
+            type: "file",
+            size: "610 KB",
+            author: "CISCE Board Council",
+            pages: ["<h3>ISC Fashion Designing Syllabus</h3><p>Introduction to Textiles, Pattern Making, Garment Construction, History of Fashion and Fashion Illustration.</p>"]
+          }]
+        }, {
+          name: "Notes",
+          type: "folder",
+          description: "Notes files",
+          children: [{
+            name: "Introduction to Textile Science.pdf",
+            type: "file",
+            size: "2.8 MB",
+            author: "Atelier Studio",
+            pages: ["<h3>Textile Fibers Classification</h3><p>Fibers are classified into Natural (cotton, wool, silk) and Synthetic (nylon, polyester, acrylic). Textile science explores fiber tensile strength, thermal properties, and moisture absorption.</p>"]
+          }]
+        }, {
+          name: "Papers",
+          type: "folder",
+          description: "Papers files",
+          children: [{
+            name: "2024 Board Project Guidelines.pdf",
+            type: "file",
+            size: "1.4 MB",
+            author: "CISCE Archive",
+            pages: ["<h3>ISC Fashion Design Practical Guidelines</h3><p>Instructions for submitting fashion plates and design portfolio items.</p>"]
+          }]
         }]
       }]
     }]
@@ -426,6 +828,7 @@ function App() {
   const [activeDoc, setActiveDoc] = React.useState(null);
   const [docPageIndex, setDocPageIndex] = React.useState(0);
   const [docZoom, setDocZoom] = React.useState(100);
+  const [scrollMode, setScrollMode] = React.useState('single'); // 'single' or 'linear'
 
   // Calculator Popup States (Exclusive to ISC)
   const [isCalcOpen, setIsCalcOpen] = React.useState(false);
@@ -447,7 +850,7 @@ function App() {
 
     // Dynamically compute the logo/favicon source path based on selected class and theme
     const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
-    const logoPath = `${logoName}`;
+    const logoPath = `Imgs/${logoName}`;
     if (faviconElement) {
       faviconElement.href = logoPath;
     }
@@ -618,10 +1021,39 @@ function App() {
       setCalcResult('Error');
     }
   };
+  const fitWidth = () => {
+    const pane = document.getElementById('reading-pane');
+    const container = pane?.parentElement;
+    if (pane && container) {
+      const containerWidth = container.clientWidth - 48;
+      const paneWidth = pane.offsetWidth || 672;
+      const scale = (containerWidth / paneWidth) * 100;
+      setDocZoom(Math.min(300, Math.max(50, Math.round(scale))));
+    }
+  };
+  const fitHeight = () => {
+    const pane = document.getElementById('reading-pane');
+    const container = pane?.parentElement;
+    if (pane && container) {
+      const containerHeight = container.clientHeight - 48;
+      const paneHeight = pane.offsetHeight || 800;
+      const scale = (containerHeight / paneHeight) * 100;
+      setDocZoom(Math.min(300, Math.max(50, Math.round(scale))));
+    }
+  };
   const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
-  const logoPath = `${logoName}`;
+  const logoPath = `Imgs/${logoName}`;
+  const activeLogoId = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}`;
+  const logoOptions = [
+    { id: 'icse-dark', src: 'Imgs/icse-dark.png' },
+    { id: 'icse-light', src: 'Imgs/icse-light.png' },
+    { id: 'isc-dark', src: 'Imgs/isc-dark.png' },
+    { id: 'isc-light', src: 'Imgs/isc-light.png' }
+  ];
   const accentColor = activeTab === 'icse' ? 'text-icseCyan' : 'text-iscPurple';
-  const borderHoverColor = activeTab === 'icse' ? 'hover:border-icseCyan shadow-cyanGlow' : 'hover:border-iscPurple shadow-purpleGlow';
+  const borderHoverColor = activeTab === 'icse' 
+    ? 'hover:border-icseCyan dark:hover:border-icseCyan hover:shadow-cyanGlow' 
+    : 'hover:border-iscPurple dark:hover:border-iscPurple hover:shadow-purpleGlow';
   const glowButtonClass = activeTab === 'icse' ? 'bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.45)]' : 'bg-violet-600 shadow-[0_0_15px_rgba(139,92,246,0.45)]';
 
   // Dynamic class positions for snappy calculator corners
@@ -634,60 +1066,82 @@ function App() {
   return /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col min-h-screen w-full select-none"
   }, /*#__PURE__*/React.createElement("nav", {
-    className: "bg-white/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800/80 sticky top-0 z-40 backdrop-blur-md transition-colors duration-300"
+    className: "bg-white dark:bg-slate-950 textured-bg border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 backdrop-blur-md transition-all duration-300"
   }, /*#__PURE__*/React.createElement("div", {
     className: "max-w-6xl mx-auto px-4 h-16 flex items-center justify-between"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center space-x-3 cursor-pointer",
+    className: "flex items-center space-x-3 cursor-pointer group",
     onClick: () => handleBreadcrumbClick(0)
-  }, /*#__PURE__*/React.createElement("img", {
-    src: logoPath,
-    alt: "Starburst Logo",
-    className: "h-9 w-9 object-contain transition-all duration-300 transform hover:rotate-18",
-    onError: e => {
-      e.target.src = 'https://placehold.co/36';
-    }
-  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "relative w-9 h-9 flex-shrink-0"
+  }, logoOptions.map(opt => {
+    const isActive = opt.id === activeLogoId;
+    return /*#__PURE__*/React.createElement("img", {
+      key: opt.id,
+      src: opt.src,
+      alt: "Starburst Logo",
+      className: `absolute inset-0 w-9 h-9 object-contain transition-all duration-500 ease-out transform ${
+        isActive 
+          ? "opacity-100 scale-100 rotate-0" 
+          : "opacity-0 scale-75 -rotate-12 pointer-events-none"
+      } group-hover:rotate-18`,
+      onError: e => {
+        e.target.src = 'https://placehold.co/36';
+      }
+    });
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "font-bold text-lg sm:text-xl tracking-tight text-slate-800 dark:text-white block"
   }, "CISCE Resources"), /*#__PURE__*/React.createElement("span", {
     className: "text-[10px] text-slate-500 dark:text-slate-400 -mt-1 block"
   }, "Study materials for ICSE & ISC students"))), /*#__PURE__*/React.createElement("button", {
     onClick: toggleTheme,
-    className: "p-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all flex items-center justify-center cursor-pointer",
+    className: "p-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-300 flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95",
     "aria-label": "Toggle Theme"
-  }, theme === 'light' ? /*#__PURE__*/React.createElement("i", {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "relative w-5 h-5 flex-shrink-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `absolute inset-0 transition-all duration-500 ease-out transform flex items-center justify-center ${
+      theme === 'light' 
+        ? "opacity-100 scale-100 rotate-0" 
+        : "opacity-0 scale-50 rotate-90 pointer-events-none"
+    }`
+  }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "moon",
     className: "w-5 h-5 text-slate-800"
-  }) : /*#__PURE__*/React.createElement("i", {
+  })), /*#__PURE__*/React.createElement("div", {
+    className: `absolute inset-0 transition-all duration-500 ease-out transform flex items-center justify-center ${
+      theme === 'dark' 
+        ? "opacity-100 scale-100 rotate-0" 
+        : "opacity-0 scale-50 -rotate-90 pointer-events-none"
+    }`
+  }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "sun",
     className: "w-5 h-5 text-amber-400"
-  })))), /*#__PURE__*/React.createElement("main", {
+  })))))), /*#__PURE__*/React.createElement("main", {
     className: "max-w-6xl w-full mx-auto px-4 py-6 flex-grow flex flex-col justify-start"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800/60 self-start"
+    className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-6 w-full"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: () => setActiveTab('icse'),
-    className: `px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${activeTab === 'icse' ? 'bg-cyan-500 text-white shadow-[0_0_12px_rgba(6,182,212,0.45)]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100'}`
+    className: `px-5 h-11 rounded-xl text-sm font-bold border transition-all duration-300 cursor-pointer flex items-center justify-center hover:scale-102 active:scale-98 ${activeTab === 'icse' ? 'bg-cyan-500 border-cyan-400 text-white shadow-[0_0_15px_rgba(6,182,212,0.55)]' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700'}`
   }, "ICSE (Class 10)"), /*#__PURE__*/React.createElement("button", {
     onClick: () => setActiveTab('isc'),
-    className: `px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${activeTab === 'isc' ? 'bg-violet-600 text-white shadow-[0_0_12px_rgba(139,92,246,0.45)]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100'}`
-  }, "ISC (Class 11-12)")), /*#__PURE__*/React.createElement("div", {
-    className: "relative flex-grow md:max-w-lg"
+    className: `px-5 h-11 rounded-xl text-sm font-bold border transition-all duration-300 cursor-pointer flex items-center justify-center hover:scale-102 active:scale-98 ${activeTab === 'isc' ? 'bg-violet-600 border-violet-500 text-white shadow-[0_0_15px_rgba(139,92,246,0.55)]' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700'}`
+  }, "ISC (Class 11-12)"), /*#__PURE__*/React.createElement("div", {
+    className: "relative flex-grow"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "absolute left-4 top-3 text-slate-400"
+    className: "absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 flex items-center"
   }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "search",
     className: "w-5 h-5"
   })), /*#__PURE__*/React.createElement("input", {
     type: "text",
     placeholder: "Search for resources...",
-    className: "w-full pl-11 pr-4 py-2.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-700 text-slate-900 dark:text-slate-100 transition-all text-sm shadow-inner",
+    className: "w-full h-11 pl-11 pr-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 transition-all text-sm rounded-xl focus:outline-none focus:border-slate-300 dark:focus:border-slate-700 shadow-inner",
     value: searchQuery,
     onChange: e => setSearchQuery(e.target.value)
   }))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/60 rounded-xl py-2.5 px-4 mb-6 flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-400 shadow-sm overflow-x-auto"
+    className: "bg-slate-50 dark:bg-slate-900/40 textured-bg border border-slate-200/80 dark:border-slate-800/60 rounded-xl py-2.5 px-4 mb-6 flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-400 shadow-sm overflow-x-auto"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: () => handleBreadcrumbClick(0),
     className: "hover:text-slate-900 dark:hover:text-slate-100 transition-colors flex items-center cursor-pointer"
@@ -711,7 +1165,7 @@ function App() {
   }, filteredFiles.map((file, idx) => /*#__PURE__*/React.createElement("div", {
     key: idx,
     onClick: () => openDoc(file),
-    className: "p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-slate-400 dark:hover:border-slate-700 shadow-sm transition-all flex items-center justify-between cursor-pointer group hover:scale-[1.01]"
+    className: `p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:scale-[1.01] transition-all duration-300 flex items-center justify-between cursor-pointer group ${borderHoverColor}`
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center space-x-3.5 min-w-0"
   }, /*#__PURE__*/React.createElement("i", {
@@ -743,15 +1197,13 @@ function App() {
     key: index
   }, item.type === 'stream' || item.type === 'folder' ? /*#__PURE__*/React.createElement("button", {
     onClick: () => handleFolderClick(item),
-    className: `w-full text-left p-4.5 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 hover:scale-[1.01] shadow-sm hover:shadow-md hover:border-slate-400 dark:hover:border-slate-700 transition-all flex items-center justify-between group cursor-pointer`
+    className: `w-full text-left p-4 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between group cursor-pointer ${borderHoverColor}`
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center space-x-4 min-w-0"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 flex-shrink-0"
+    className: "flex items-center space-x-3.5 min-w-0"
   }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "folder",
-    className: `w-6 h-6 ${accentColor}`
-  })), /*#__PURE__*/React.createElement("div", {
+    className: `w-6 h-6 ${accentColor} flex-shrink-0`
+  }), /*#__PURE__*/React.createElement("div", {
     className: "min-w-0"
   }, /*#__PURE__*/React.createElement("span", {
     className: "font-bold text-slate-800 dark:text-slate-200 block truncate leading-snug"
@@ -764,7 +1216,7 @@ function App() {
   /* If File Type (Trigger Custom Document Viewer) */
   React.createElement("div", {
     onClick: () => openDoc(item),
-    className: "p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:scale-[1.01] hover:border-slate-400 dark:hover:border-slate-700 shadow-sm transition-all flex items-center justify-between cursor-pointer group"
+    className: `p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:scale-[1.01] transition-all duration-300 flex items-center justify-between cursor-pointer group ${borderHoverColor}`
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center space-x-3.5 min-w-0"
   }, /*#__PURE__*/React.createElement("i", {
@@ -785,7 +1237,7 @@ function App() {
     "data-lucide": "folder-open",
     className: "w-10 h-10 mx-auto mb-2 text-slate-500 opacity-60"
   }), /*#__PURE__*/React.createElement("p", null, "This directory is empty")))), /*#__PURE__*/React.createElement("footer", {
-    className: "w-full py-6 border-t border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-950 transition-colors duration-300"
+    className: "w-full py-6 border-t border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-950 textured-bg transition-colors duration-300"
   }, /*#__PURE__*/React.createElement("div", {
     className: "max-w-6xl mx-auto px-4 text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400 space-y-1"
   }, /*#__PURE__*/React.createElement("p", null, "NOT affiliated to the Council for the Indian Secondary Certificate Examinations ."), /*#__PURE__*/React.createElement("p", {
@@ -793,23 +1245,23 @@ function App() {
   }, "Developed by students for students."))), activeDoc && /*#__PURE__*/React.createElement("div", {
     className: "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col h-[85vh] animate-in fade-in zoom-in-95 duration-200"
+    className: "w-[90vw] h-[90vh] bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl flex flex-col animate-in fade-in zoom-in-95 duration-200 overflow-hidden"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950 rounded-t-2xl"
+    className: "flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950 rounded-t-2xl"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center space-x-3 truncate mr-4"
+    className: "flex items-center space-x-3.5 truncate mr-4"
   }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "file-text",
     className: "w-5 h-5 text-red-500 flex-shrink-0"
   }), /*#__PURE__*/React.createElement("div", {
     className: "truncate"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "font-bold text-sm text-slate-200 block truncate"
+    className: "font-bold text-base text-slate-200 block truncate"
   }, activeDoc.name), /*#__PURE__*/React.createElement("span", {
     className: "text-[10px] text-slate-400 block -mt-0.5"
   }, activeDoc.author || 'CISCE Doc Pool'))), /*#__PURE__*/React.createElement("div", {
     className: "hidden sm:flex items-center space-x-6 text-slate-400 text-xs"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, scrollMode === 'single' ? /*#__PURE__*/React.createElement("div", {
     className: "flex items-center space-x-2"
   }, /*#__PURE__*/React.createElement("button", {
     disabled: docPageIndex === 0,
@@ -825,44 +1277,100 @@ function App() {
   }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "chevron-right",
     className: "w-4 h-4"
-  }))), /*#__PURE__*/React.createElement("div", {
+  }))) : /*#__PURE__*/React.createElement("span", {
+    className: "select-none font-medium text-slate-400"
+  }, activeDoc.pages.length, " Pages")), /*#__PURE__*/React.createElement("div", {
     className: "w-[1px] h-4 bg-slate-800"
   }), /*#__PURE__*/React.createElement("div", {
     className: "flex items-center space-x-2"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: () => setDocZoom(prev => Math.max(50, prev - 25)),
-    className: "p-1 rounded hover:bg-slate-800 hover:text-white cursor-pointer"
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white cursor-pointer",
+    title: "Zoom Out"
   }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "minus",
     className: "w-4 h-4"
   })), /*#__PURE__*/React.createElement("span", {
-    className: "w-10 text-center"
+    className: "w-10 text-center select-none"
   }, docZoom, "%"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => setDocZoom(prev => Math.min(150, prev + 25)),
-    className: "p-1 rounded hover:bg-slate-800 hover:text-white cursor-pointer"
+    onClick: () => setDocZoom(prev => Math.min(300, prev + 25)),
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white cursor-pointer",
+    title: "Zoom In"
   }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "plus",
     className: "w-4 h-4"
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center space-x-2 flex-shrink-0"
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: fitWidth,
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white cursor-pointer ml-1",
+    title: "Fit to Width"
+  }, /*#__PURE__*/React.createElement("svg", {
+    className: "w-4 h-4",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("path", { d: "M4 12h16M4 12l4-4m-4 4 4 4m12-8 4 4-4 4" }))), /*#__PURE__*/React.createElement("button", {
+    onClick: fitHeight,
+    className: "p-1 rounded hover:bg-slate-800 hover:text-white cursor-pointer",
+    title: "Fit to Height"
+  }, /*#__PURE__*/React.createElement("svg", {
+    className: "w-4 h-4",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("path", { d: "M12 4v16M12 4l-4 4m4-4 4 4m-8 8 4 4 4-4" })))), /*#__PURE__*/React.createElement("div", {
+    className: "w-[1px] h-4 bg-slate-800"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-1.5"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setScrollMode('single'),
+    className: `p-1 rounded cursor-pointer transition-colors ${scrollMode === 'single' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:bg-slate-800/40 hover:text-slate-300'}`,
+    title: "Single Page Mode"
+  }, /*#__PURE__*/React.createElement("svg", {
+    className: "w-4 h-4",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("rect", { x: "4", y: "2", width: "16", height: "20", rx: "2" }))), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setScrollMode('linear'),
+    className: `p-1 rounded cursor-pointer transition-colors ${scrollMode === 'linear' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:bg-slate-800/40 hover:text-slate-300'}`,
+    title: "Continuous Scroll Mode"
+  }, /*#__PURE__*/React.createElement("svg", {
+    className: "w-4 h-4",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("rect", { x: "6", y: "2", width: "12", height: "8", rx: "1.5" }), /*#__PURE__*/React.createElement("rect", { x: "6", y: "14", width: "12", height: "8", rx: "1.5" })))) , /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center space-x-4 flex-shrink-0"
   }, /*#__PURE__*/React.createElement("a", {
     href: "#",
     onClick: e => {
       e.preventDefault();
       alert("Preparing direct download file stream...");
     },
-    className: "p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors",
+    className: "text-slate-400 hover:text-white transition-colors cursor-pointer p-1",
     title: "Download PDF"
   }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "download",
-    className: "w-4.5 h-4.5"
+    className: "w-5 h-5"
   })), /*#__PURE__*/React.createElement("button", {
     onClick: closeDoc,
-    className: "p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:text-white hover:bg-red-500 transition-colors cursor-pointer",
+    className: "text-slate-400 hover:text-white transition-colors cursor-pointer p-1",
     title: "Close Viewer"
   }, /*#__PURE__*/React.createElement("i", {
     "data-lucide": "x",
-    className: "w-4.5 h-4.5"
+    className: "w-5 h-5"
   })))), /*#__PURE__*/React.createElement("div", {
     className: "sm:hidden flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-950/40 text-xs text-slate-400"
   }, /*#__PURE__*/React.createElement("div", {
@@ -883,7 +1391,7 @@ function App() {
     className: "w-4 h-4"
   }))), /*#__PURE__*/React.createElement("div", null, "Zoom: ", docZoom, "%")), /*#__PURE__*/React.createElement("div", {
     className: "flex-grow overflow-auto p-6 bg-slate-950 flex justify-center"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, scrollMode === 'single' ? /*#__PURE__*/React.createElement("div", {
     id: "reading-pane",
     style: {
       transform: `scale(${docZoom / 100})`,
@@ -893,9 +1401,20 @@ function App() {
     dangerouslySetInnerHTML: {
       __html: activeDoc.pages[docPageIndex]
     }
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-2 border-t border-slate-800 bg-slate-950 rounded-b-2xl flex items-center justify-between text-[11px] text-slate-500"
-  }, /*#__PURE__*/React.createElement("span", null, "Interactive Study Guide Framework"), /*#__PURE__*/React.createElement("span", null, "Google Drive Viewer Mock V2")))), activeTab === 'isc' && /*#__PURE__*/React.createElement("button", {
+  }) : /*#__PURE__*/React.createElement("div", {
+    id: "reading-pane",
+    style: {
+      transform: `scale(${docZoom / 100})`,
+      transformOrigin: 'top center'
+    },
+    className: "flex flex-col space-y-6 items-center w-full transition-transform duration-200"
+  }, activeDoc.pages.map((pageHtml, index) => /*#__PURE__*/React.createElement("div", {
+    key: index,
+    className: "w-full max-w-2xl bg-white text-slate-900 p-8 sm:p-12 rounded-lg shadow-lg min-h-[600px] border border-slate-200",
+    dangerouslySetInnerHTML: {
+      __html: pageHtml
+    }
+  })))))), activeTab === 'isc' && /*#__PURE__*/React.createElement("button", {
     onClick: () => setIsCalcOpen(prev => !prev),
     className: "fixed bottom-6 right-6 w-14 h-14 bg-violet-600 hover:bg-violet-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-violet-500/25 transition-all hover:scale-105 duration-200 cursor-pointer z-40",
     title: "Launch Scientific Calculator"

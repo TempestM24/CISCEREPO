@@ -6,7 +6,7 @@
   <title>CISCE Docs - ICSE & ISC Resources</title>
   
   <!-- Dynamic Favicon Link Element -->
-  <link id="favicon" rel="icon" type="image/png" href="icse-dark.png" />
+  <link id="favicon" rel="icon" type="image/png" href="Imgs/icse-dark.png" />
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -86,12 +86,12 @@
     }
     
     .dark .textured-bg {
-      background-image: linear-gradient(rgba(7, 7, 10, 0.55), rgba(7, 7, 10, 0.55)), url('texture-dark.png');
+      background-image: linear-gradient(rgba(7, 7, 10, 0.55), rgba(7, 7, 10, 0.55)), url('Imgs/texture-dark.png');
       background-color: #07070a !important;
     }
     
     .light .textured-bg, html:not(.dark) .textured-bg {
-      background-image: url('texture-light.jpg');
+      background-image: url('Imgs/texture-light.jpg');
     }
 
     /* Core theme color alignment matching seamless charcoal textures */
@@ -153,6 +153,30 @@
         transform: scale(1) rotate(0);
         opacity: 1;
       }
+    }
+    /* Document page overrides to ensure white sheets and crisp dark text in both modes */
+    #reading-pane,
+    .dark #reading-pane,
+    #reading-pane div.bg-white,
+    .dark #reading-pane div.bg-white {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #e2e8f0 !important;
+    }
+    
+    #reading-pane h1, #reading-pane h2, #reading-pane h3, #reading-pane h4, #reading-pane h5, #reading-pane h6,
+    .dark #reading-pane h1, .dark #reading-pane h2, .dark #reading-pane h3, .dark #reading-pane h4, .dark #reading-pane h5, .dark #reading-pane h6 {
+      color: #0f172a !important;
+    }
+
+    #reading-pane p, #reading-pane span, #reading-pane li, #reading-pane td, #reading-pane th,
+    .dark #reading-pane p, .dark #reading-pane span, .dark #reading-pane li, .dark #reading-pane td, .dark #reading-pane th {
+      color: #334155 !important;
+    }
+
+    #reading-pane table, #reading-pane th, #reading-pane td,
+    .dark #reading-pane table, .dark #reading-pane th, .dark #reading-pane td {
+      border-color: #cbd5e1 !important;
     }
   </style>
 
@@ -850,7 +874,7 @@ function App() {
 
     // Dynamically compute the logo/favicon source path based on selected class and theme
     const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
-    const logoPath = `${logoName}`;
+    const logoPath = `Imgs/${logoName}`;
     if (faviconElement) {
       faviconElement.href = logoPath;
     }
@@ -1042,13 +1066,13 @@ function App() {
     }
   };
   const logoName = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}.png`;
-  const logoPath = `${logoName}`;
+  const logoPath = `Imgs/${logoName}`;
   const activeLogoId = `${activeTab}-${theme === 'dark' ? 'dark' : 'light'}`;
   const logoOptions = [
-    { id: 'icse-dark', src: 'icse-dark.png' },
-    { id: 'icse-light', src: 'icse-light.png' },
-    { id: 'isc-dark', src: 'isc-dark.png' },
-    { id: 'isc-light', src: 'isc-light.png' }
+    { id: 'icse-dark', src: 'Imgs/icse-dark.png' },
+    { id: 'icse-light', src: 'Imgs/icse-light.png' },
+    { id: 'isc-dark', src: 'Imgs/isc-dark.png' },
+    { id: 'isc-light', src: 'Imgs/isc-light.png' }
   ];
   const accentColor = activeTab === 'icse' ? 'text-icseCyan' : 'text-iscPurple';
   const borderHoverColor = activeTab === 'icse' 
